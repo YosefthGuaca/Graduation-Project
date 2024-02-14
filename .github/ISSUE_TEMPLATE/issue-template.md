@@ -1,16 +1,18 @@
 ---
-name: Issue template
-about: This is issue template
-title: ''
-labels: ''
-assignees: ''
-
+name: Template
+about: This is a template
+title: ""
+labels: ""
+assignees: ""
 ---
 
 ## Problem / Goal
 
 ## Requirements
-- First
-- Second
+
+- [ ] First
+- [ ] Second
 
 ## Screenshots
+
+## Reference
