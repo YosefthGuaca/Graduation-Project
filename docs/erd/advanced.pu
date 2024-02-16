@@ -1,4 +1,4 @@
-@startuml erd
+@startuml db
 skin rose
 
 package "account" {
@@ -115,7 +115,7 @@ package "site" {
     # website_id : number
     foreground : text
     background : text
-    text : text
+    heading : text
     created_at : datetime
     updated_at : datetime
   }
