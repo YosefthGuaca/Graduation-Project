@@ -1,0 +1,206 @@
+@startuml db
+skin rose
+
+package "account" {
+  entity "users" {
+    + id : number
+    ==
+    email : string : unique
+    hashed_password : string
+    username : string
+    profile : string
+    type : enum
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "user_login_logs" {
+    + id : number
+    ==
+    # user_id : number
+    ip : string
+    user_agent : string
+    created_at : datetime
+  }
+
+  entity "organizations" {
+    + id : number
+    ==
+    name : string
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "user_organization_relations" {
+    + id : number
+    ==
+    # organization_id : number
+    # user_id : number
+    role : enum
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "projects" {
+    + id : number
+    ==
+    # user_id : number
+    name : string
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "media" {
+    + id
+    ==
+    # user_id : number
+    file_name : string
+    file_path : string
+    file_type : string
+    created_at : datetime
+    updated_at : datetime
+  }
+}
+
+package "site" {
+  entity "websites" {
+    + id : number
+    ==
+    # project_id : number
+    template : enum
+    slug : string : unique
+    title : string
+    favicon : string
+    ga_id : string
+    logo : string
+    password: string
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "pages" {
+    + id : number
+    ==
+    # website_id : number
+    type : enum
+    slug : string
+    name : string
+    title : string
+    meta_description : text
+    og_title : string
+    og_description : text
+    og_image : string
+    password: string
+    order : number
+    status : enum
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "blocks" {
+    + id
+    ==
+    # page_id : number
+    type : enum
+    content : text
+    order : number
+    status : enum
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "heros" {
+    + id : number
+    ==
+    # website_id : number
+    foreground : text
+    background : text
+    heading : text
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "fonts" {
+    + id : number
+    ==
+    # website_id : number
+    role : enum
+    url : string
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "colors" {
+    + id : number
+    ==
+    # website_id : number
+    role : enum
+    hex : string
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "custom_domains" {
+    + id : number
+    ==
+    # user_id : number
+    # website_id : number
+    domain : string
+    requested_at : datetime
+    completed_at : datetime
+    created_at : datetime
+    updated_at : datetime
+  }
+}
+
+package "comment" {
+  entity "comments" {
+    + id : number
+    ==
+    # sender_id : number
+    # receiver_id : number
+    content : text
+    confirmed_at : datetime
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "comment_replies" {
+    + id : number
+    ==
+    # comment_id : number
+    # user_id : number
+    content : text
+    confirmed_at : datetime
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "comment_page_relations" {
+    + id : number
+    ==
+    # comment_id : number
+    # page_id : number
+    created_at : datetime
+  }
+}
+
+organizations --o{ user_organization_relations
+users --o{ user_organization_relations
+users --o{ user_login_logs
+users --o{ projects
+users --o{ media
+projects --o{ websites
+websites --o{ pages
+websites --o{ heros
+websites --o{ fonts
+websites --o{ colors
+websites --o{ custom_domains
+pages --o{ blocks
+pages --o{ comment_page_relations
+users --o{ comments
+users --o{ comments
+comments --o{ comment_replies
+users --o{ comment_replies
+comments --o{ comment_page_relations
+@enduml
