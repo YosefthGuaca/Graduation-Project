@@ -2,6 +2,7 @@
 
 ```bash
 npm install
+cp .env.example .env
 ```
 
 ## Start
@@ -15,4 +16,10 @@ npm run dev
 ```bash
 npm run build
 npm run start
+```
+
+## Test
+
+```bash
+npm test
 ```
