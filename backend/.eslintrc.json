@@ -8,8 +8,5 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    "@typescript-eslint/no-var-requires": 0 // const express = require("express")
-  }
+  "plugins": ["@typescript-eslint"]
 }
