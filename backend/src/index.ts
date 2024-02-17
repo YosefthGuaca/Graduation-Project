@@ -5,11 +5,14 @@ dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 4000;
+app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript a Server");
+  res.status(200).json({ message: "Hello World!" });
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+
+export default server;
