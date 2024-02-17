@@ -1,0 +1,269 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  password     String
+  provider     String?
+  providerId   String?
+  providerData Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  username     String
+  password     String
+  type         UserType  @default(Member)
+  provider     String?
+  providerId   String?
+  providerData Json?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  projects     Project[]
+  media        Medium[]
+}
+
+model Medium {
+  id        Int      @id @default(autoincrement())
+  filename  String   @unique
+  path      String
+  mimetype  String
+  size      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Project {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  websites  Website[]
+}
+
+model Website {
+  id        Int        @id @default(autoincrement())
+  title     String
+  slug      String     @unique
+  template  Template   @default(Default)
+  status    PageStatus @default(Draft)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  project   Project    @relation(fields: [projectId], references: [id])
+  projectId Int
+  pages     Page[]
+  fonts     Font[]
+  colors    Color[]
+}
+
+model Page {
+  id        Int      @id @default(autoincrement())
+  slug      String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  website   Website  @relation(fields: [websiteId], references: [id])
+  websiteId Int
+  blocks    Block[]
+
+  @@unique([slug, websiteId])
+}
+
+model Block {
+  id        Int         @id @default(autoincrement())
+  content   Json
+  order     Int
+  status    BlockStatus @default(Draft)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  page      Page        @relation(fields: [pageId], references: [id])
+  pageId    Int
+}
+
+model Font {
+  id         Int        @id @default(autoincrement())
+  role       FontRole
+  size       FontSize
+  weight     FontWeight @default(Regular)
+  italic     Boolean    @default(false)
+  lineHeight LineHeight
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  website    Website    @relation(fields: [websiteId], references: [id])
+  websiteId  Int
+}
+
+model Color {
+  id        Int        @id @default(autoincrement())
+  role      ColorRole
+  base      ColorBase
+  shade     ColorShade
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  website   Website    @relation(fields: [websiteId], references: [id])
+  websiteId Int
+}
+
+enum UserType {
+  Admin
+  Manager
+  Member
+}
+
+enum Template {
+  Default
+}
+
+enum PageStatus {
+  Draft
+  Published
+  Archived
+}
+
+enum BlockStatus {
+  Draft
+  Published
+  Archived
+}
+
+enum FontRole {
+  HeroTitle
+  HeroSubtitle
+  ThumnailTitle
+  HeadingFirst
+  HeadingSecond
+  HeadingThird
+  HeadingFourth
+  HeroParagraph
+  ThumnailDescription
+  Paragraph
+  ImageCaption
+  NavigationLinks
+  ButtonLabel
+}
+
+enum FontSize {
+  XSmall
+  Small
+  Base
+  Large
+  XLarge
+  TwoXLarge
+  ThreeXLarge
+  FourXLarge
+  FiveXLarge
+  SixXLarge
+  SevenXLarge
+  EightXLarge
+  NineXLarge
+}
+
+enum FontWeight {
+  Thin
+  ExtraLight
+  Light
+  Regular
+  Medium
+  SemiBold
+  Bold
+  ExtraBold
+  Black
+}
+
+enum LineHeight {
+  Three
+  Four
+  Five
+  Six
+  Seven
+  Eight
+  Nine
+  Ten
+  Tight
+  Snug
+  Normal
+  Relaxed
+  Loose
+}
+
+enum ColorRole {
+  HeroTitle
+  HeroSubtitle
+  HeadingFirst
+  HeadingSecond
+  HeadingThird
+  HeadingFourth
+  ThumnailTitle
+  HeroParagraph
+  ThumnailSubtitle
+  Paragraph
+  ImageCaption
+  NavigationItemsDefault
+  NavigationItemsHover
+  ButtonFill
+  ButtonText
+  Hyperlinks
+  Background
+  DividerLines
+}
+
+enum ColorBase {
+  Inherit
+  Current
+  Transparent
+  Black
+  White
+  Slate
+  Gray
+  Zinc
+  Neutral
+  Stone
+  Red
+  Orange
+  Amber
+  Yellow
+  Lime
+  Green
+  Emerald
+  Teal
+  Cyan
+  Sky
+  Blue
+  Indigo
+  Violet
+  Purple
+  Fuchsia
+  Pink
+  Rose
+}
+
+enum ColorShade {
+  S50
+  S100
+  S200
+  S300
+  S400
+  S500
+  S600
+  S700
+  S800
+  S900
+  S950
+}
