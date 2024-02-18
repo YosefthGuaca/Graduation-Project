@@ -30,6 +30,6 @@ jobs:
 
     - name: Run tests
       run: npm test --prefix ./backend
-
+      
     - name: Run lint
-      run: npm run --prefix ./backend/package.json lint
+      run: npm run --prefix ./backend lint
