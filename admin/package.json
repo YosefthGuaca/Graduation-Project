@@ -4,12 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
-    "build": "rimraf dist && npx tsc",
-    "prestart": "npm run build",
+    "build": "tsc",
     "start": "node dist/server.js",
-    "predev": "npm run build",
-    "dev": "concurrently \"npx tsc -w\" \"nodemon dist/src/server.js\""
+    "dev": "nodemon src/server.ts",
+    "test": "jest",
+    "lint": "npx eslint . --ext .ts,.js --fix",
+    "format": "prettier . --write"
   },
   "keywords": [],
   "author": "",
