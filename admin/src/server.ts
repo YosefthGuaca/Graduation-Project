@@ -1,9 +1,13 @@
-import Express from "express";
-const app = Express();
+import express from "express";
+const app = express();
 const PORT = 8000;
 
-app.get("/", (req, res) => {
-  res.send("Hello world!");
+app.set("view engine", "ejs");
+app.set("views", "./src/views");
+app.use(express.static("public"));
+
+app.get("/", (req: express.Request, res: express.Response) => {
+  res.render("./pages/index.ejs");
 });
 
 app.listen(PORT, () => {
