@@ -5,10 +5,14 @@ on:
     branches:
       - develop
       - main
+    paths:
+      - 'backend/**'
   pull_request:
     branches:
       - develop
       - main
+    paths:
+      - 'backend/**'
 
 jobs:
   build:
