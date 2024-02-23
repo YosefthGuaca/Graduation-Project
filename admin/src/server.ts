@@ -6,8 +6,8 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`listening on port ${PORT}!`);
 });
 
-export default app;
+export default server;

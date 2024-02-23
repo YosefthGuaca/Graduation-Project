@@ -1,7 +1,7 @@
 import supertest from "supertest";
-import app from "./server";
+import server from "./server";
 
-const request = supertest(app);
+const request = supertest(server);
 
 describe("GET /", () => {
   it('responds with "Hello world!"', async () => {
@@ -9,4 +9,8 @@ describe("GET /", () => {
     expect(response.status).toBe(200);
     expect(response.text).toBe("Hello world!");
   });
+});
+
+afterAll(() => {
+  server.close();
 });
