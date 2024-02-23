@@ -1,0 +1,39 @@
+name: Admin CI
+
+on:
+  push:
+    paths:
+      - "admin/**"
+    branches:
+      - develop
+      - main
+  pull_request:
+    paths:
+      - "admin/**"
+    branches:
+      - develop
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: cd admin && npm install
+
+      - name: Run build
+        run: cd admin && npm run build
+
+      - name: Run tests
+        run: cd admin && npm test
+
+      - name: Run lint
+        run: cd admin && npm run lint

@@ -10,8 +10,8 @@ app.get("/", (req: express.Request, res: express.Response) => {
   res.render("./pages/index.ejs");
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`listening on port ${PORT}!`);
 });
 
-export default app;
+export default server;
