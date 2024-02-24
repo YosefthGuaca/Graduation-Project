@@ -3,11 +3,16 @@
     "dev": "concurrently --names \"backend,frontend,admin\" --prefix \"[{name}]\" --prefix-colors \"cyan,magenta,green\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\" \"npm run dev --prefix admin\""
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "prisma": "^5.10.2"
   },
   "workspaces": [
     "backend",
     "frontend",
     "admin"
-  ]
+  ],
+  "dependencies": {
+    "@prisma/client": "^5.10.2",
+    "dotenv": "^16.4.5"
+  }
 }
