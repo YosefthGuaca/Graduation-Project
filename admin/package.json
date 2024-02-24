@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "test": "jest",
+    "test": "jest --forceExit --detectOpenHandles",
     "lint": "npx eslint . --ext .ts,.js --fix",
     "format": "prettier . --write"
   },

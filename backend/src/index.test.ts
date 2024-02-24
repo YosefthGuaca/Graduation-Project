@@ -1,5 +1,5 @@
 import request from "supertest";
-import server from "@/index";
+import server from "./index";
 
 describe("GET /", () => {
   it("should return 200 OK", async () => {
