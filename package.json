@@ -10,6 +10,9 @@
     "concurrently": "^8.2.2",
     "prisma": "^5.10.2"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "workspaces": [
     "backend",
     "frontend",
