@@ -17,7 +17,7 @@ cp .env.example .env
 - Create Database for this project. [docs/postgresql/create_database](/docs/postgresql/create_database.md)
 - Edit `DATABASE_URL` in `.env`
 
-```bash
+```sh
 npx prisma migrate dev
 npx prisma studio
 ```
