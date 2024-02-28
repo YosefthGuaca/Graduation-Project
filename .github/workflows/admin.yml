@@ -33,7 +33,7 @@ jobs:
         run: cd admin && npm run build
 
       - name: Run tests
-        run: cd ../ && npm run generate && cd admin && npm test
+        run: npm run generate && cd admin && npm test
 
       - name: Run lint
         run: cd admin && npm run lint
