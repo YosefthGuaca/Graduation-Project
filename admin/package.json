@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run generate && tsc",
+    "generate": "prisma generate",
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
     "test": "jest --forceExit --detectOpenHandles",
