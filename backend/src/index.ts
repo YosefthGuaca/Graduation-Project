@@ -5,7 +5,7 @@ import corsRoutes from "./routes/corsRoutes";
 dotenv.config();
 
 const app: Express = express();
-app.use("/app", corsRoutes);
+app.use("/api", corsRoutes);
 const port = 4000;
 app.use(express.json());
 
