@@ -6,7 +6,7 @@ dotenv.config();
 
 const app: Express = express();
 
-app.use("/api", corsRoutes);
+app.use("/app", corsRoutes);
 
 const port = process.env.PORT || 4000;
 app.use(express.json());

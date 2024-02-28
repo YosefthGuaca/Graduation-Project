@@ -3,7 +3,7 @@ import React from 'react';
 const CorsTestPage: React.FC = () => {
     const handleRequest = async (method: string) => {
         try {
-            const response = await fetch(`/api/cors-test`, {
+            const response = await fetch(`'/app/:path*`, {
                 method,
                 headers: {
                     'Content-Type': 'application/json'

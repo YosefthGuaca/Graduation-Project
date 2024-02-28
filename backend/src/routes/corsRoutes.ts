@@ -5,24 +5,24 @@ const router = express.Router();
 
 router.use(cors());
 
-router.get("/api/cors-test", (req, res) => {
-  res.send("GET request to /api/cors-test");
+router.get("/app/:path*", (req, res) => {
+  res.send("GET request to /app/:path*");
 });
 
-router.post("/api/cors-test", (req, res) => {
-  res.send("POST request to /api/cors-test");
+router.post("/app/:path*", (req, res) => {
+  res.send("POST request to /app/:path*");
 });
 
-router.delete("/api/cors-test", (req, res) => {
-  res.send("DELETE request to /api/cors-test");
+router.delete("/app/:path*", (req, res) => {
+  res.send("DELETE request to /app/:path*");
 });
 
-router.patch("/api/cors-test", (req, res) => {
-  res.send("PATCH request to /api/cors-test");
+router.patch("/app/:path*", (req, res) => {
+  res.send("PATCH request to /app/:path*");
 });
 
-router.put("/api/cors-test", (req, res) => {
-  res.send("PUT request to /api/cors-test");
+router.put("/app/:path*", (req, res) => {
+  res.send("PUT request to /app/:path*");
 });
 
 export default router;
