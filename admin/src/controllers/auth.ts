@@ -27,8 +27,8 @@ const signup = async (req: express.Request, res: express.Response) => {
         password: hashedPassword,
       },
     })
-    .catch((error: any) => {
-      return res.status(500).json({ error: error });
+    .catch((error) => {
+      return res.status(500).json(error);
     });
 
   return res.status(201).redirect("/login");
@@ -40,13 +40,13 @@ const login = passport.authenticate("local", {
   failureFlash: false,
 });
 
-const logout = (req: any, res: any) => {
-  req.logout((err: any) => {
+const logout = (req: express.Request, res: express.Response) => {
+  req.logout((err: Error) => {
     if (err) {
       return res.status(500).json({ error: err });
     }
   });
-  res.status(200).clearCookie("connect.sid").redirect("/");
+  return res.status(200).clearCookie("connect.sid").redirect("/");
 };
 
 export { login, logout, signup };

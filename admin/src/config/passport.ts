@@ -4,6 +4,17 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import expressSession from "express-session";
 
+type Admin = {
+  id: number;
+  email: string;
+  password: string;
+  provider: string | null;
+  providerId: string | null;
+  providerData: PrismaClient;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 const prisma = new PrismaClient();
 
 const session = expressSession({
@@ -39,14 +50,14 @@ passport.use(
   )
 );
 
-passport.serializeUser((user: any, done) => {
-  done(null, user.id);
+passport.serializeUser((admin: Express.User, done) => {
+  done(null, admin);
 });
 
-passport.deserializeUser(async (id: number, done) => {
+passport.deserializeUser(async (user: Admin, done) => {
   const admin = await prisma.admin.findUnique({
     where: {
-      id,
+      id: user.id,
     },
   });
 
