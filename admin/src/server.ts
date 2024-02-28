@@ -17,7 +17,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", (req: express.Request, res: express.Response) => {
-  res.render("./pages/index.ejs");
+  if (req.isAuthenticated()) {
+    return res.render("./pages/index.ejs", { user: req.user });
+  } else {
+    return res.render("./pages/login.ejs");
+  }
 });
 
 app.get("/signup", (req: express.Request, res: express.Response) => {

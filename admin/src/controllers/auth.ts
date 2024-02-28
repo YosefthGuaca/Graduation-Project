@@ -31,7 +31,7 @@ const signup = async (req: express.Request, res: express.Response) => {
       return res.status(500).json({ error: error });
     });
 
-  return res.status(201).redirect("/");
+  return res.status(201).redirect("/login");
 };
 
 const login = passport.authenticate("local", {
