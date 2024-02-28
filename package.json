@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "setup": "npm install --workspaces",
     "generate": "prisma generate",
+    "setup": "npm install && npm install --workspaces",
     "test": "npm run test --workspaces",
     "lint": "npm run lint --workspaces",
     "format": "npm run format --workspaces",
@@ -10,6 +10,9 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "prisma": "^5.10.2"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "workspaces": [
     "backend",
