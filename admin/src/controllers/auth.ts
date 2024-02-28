@@ -27,7 +27,7 @@ const signup = async (req: express.Request, res: express.Response) => {
         password: hashedPassword,
       },
     })
-    .catch((error) => {
+    .catch((error: Error) => {
       return res.status(500).json(error);
     });
 
