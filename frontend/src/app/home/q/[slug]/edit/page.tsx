@@ -5,6 +5,7 @@ const Page = (props: Props) => {
     <>
       <div className="panel__top">
         <div className="panel__basic-actions"></div>
+        <div className="panel__devices"></div>
         <div className="panel__switcher"></div>
       </div>
       <div className="editor-row">
@@ -16,6 +17,7 @@ const Page = (props: Props) => {
         <div className="panel__right">
           <div className="layers-container"></div>
           <div className="styles-container"></div>
+          <div className="traits-container"></div>
         </div>
       </div>
       <div id="blocks"></div>
