@@ -1,4 +1,4 @@
-@startuml db
+@startuml uxshowgo
 skin rose
 
 package "account" {
