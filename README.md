@@ -22,6 +22,12 @@ npx prisma migrate dev
 npx prisma studio
 ```
 
+Reset migration and seed data
+
+```sh
+npx prisma migrate reset
+```
+
 ## Start server
 
 ```sh

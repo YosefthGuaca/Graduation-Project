@@ -7,7 +7,8 @@ async function seed() {
     data: [
       {
         email: "admin@example.com",
-        password: await bcrypt.hash("admin", 10),
+        hashedPassword: await bcrypt.hash("admin", 10),
+        type: "Super",
       },
     ],
   });
@@ -16,17 +17,17 @@ async function seed() {
     data: [
       {
         email: "user1@example.com",
-        password: await bcrypt.hash("user1", 10),
+        hashedPassword: await bcrypt.hash("user1", 10),
         username: "user1",
       },
       {
         email: "user2@example.com",
-        password: await bcrypt.hash("user2", 10),
+        hashedPassword: await bcrypt.hash("user2", 10),
         username: "user2",
       },
       {
         email: "user3@example.com",
-        password: await bcrypt.hash("user3", 10),
+        hashedPassword: await bcrypt.hash("user3", 10),
         username: "user3",
       },
     ],

@@ -1,0 +1,132 @@
+@startuml uxshowgo
+skin rose
+
+package "account" {
+  entity "admins" {
+    + id : number
+    ==
+    email : string : unique
+    hashed_password : string
+    type : enum
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "users" {
+    + id : number
+    ==
+    email : string : unique
+    username : string
+    hashed_password : string
+    type : enum
+    premium_start : datetime
+    premium_end : datetime
+    provider : string
+    provider_id : string
+    provider_data : json
+    profile_filename : string : unique
+    profile_path : string
+    profile_mimetype : string
+    profile_size : number
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "user_login_logs" {
+    + id : number
+    ==
+    # user_id : number
+    ip_address : string
+    user_agent : string
+    created_at : datetime
+  }
+
+  entity "assets" {
+    + id
+    ==
+    # user_id : number
+    filename : string
+    path : string
+    mimetype : string
+    size : number
+    created_at : datetime
+    updated_at : datetime
+  }
+}
+
+package "site" {
+  entity "websites" {
+    + id : number
+    ==
+    # user_id : number
+    title : string
+    slug : string : unique
+    favicon_filename : string : unique
+    favicon_path : string
+    favicon_mimetype : string
+    favicon_size : number
+    google_analytics_id : string
+    meta_description : string
+    og_title : string
+    og_description : string
+    og_image_filename : string
+    og_image_path : string
+    og_image_mimetype : string
+    og_image_size : number
+    password: string
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "versions" {
+    + id : number
+    ==
+    # website_id : number
+    status : enum
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "pages" {
+    + id : number
+    ==
+    # version_id: number
+    slug : string
+    content : json
+    name : string
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "templates" {
+    + id
+    ==
+    name : string
+    path : string
+    order : number
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity "custom_domains" {
+    + id : number
+    ==
+    # user_id : number
+    # website_id : number
+    domain : string
+    requested_at : datetime
+    completed_at : datetime
+    created_at : datetime
+    updated_at : datetime
+  }
+}
+
+users --o{ user_login_logs
+users --o{ websites
+users --o{ assets
+websites --o{ versions
+versions --o{ pages
+users --o{ custom_domains
+websites --o{ custom_domains
+
+@enduml

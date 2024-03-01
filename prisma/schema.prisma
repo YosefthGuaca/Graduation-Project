@@ -11,32 +11,44 @@ datasource db {
 }
 
 model Admin {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  password     String
-  provider     String?
-  providerId   String?
-  providerData Json?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id             Int       @id @default(autoincrement())
+  email          String    @unique
+  hashedPassword String
+  type           AdminType @default(Reader)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model User {
-  id           Int       @id @default(autoincrement())
-  email        String    @unique
-  username     String
-  password     String
-  type         UserType  @default(Member)
-  provider     String?
-  providerId   String?
-  providerData Json?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  projects     Project[]
-  media        Medium[]
+  id              Int            @id @default(autoincrement())
+  email           String         @unique
+  username        String
+  hashedPassword  String
+  type            UserType       @default(General)
+  PremiumStart    DateTime?
+  PremiumEnd      DateTime?
+  provider        String?
+  providerId      String?
+  providerData    Json?
+  profileFilename String?        @unique
+  profilePath     String?
+  profileMimetype String?
+  profileSize     Int?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  websites        Website[]
+  assets          Asset[]
+  CustomDomain    CustomDomain[]
 }
 
-model Medium {
+model UserLoginLog {
+  id        Int      @id @default(autoincrement())
+  ipAddress String
+  userAgent String
+  createdAt DateTime @default(now())
+}
+
+model Asset {
   id        Int      @id @default(autoincrement())
   filename  String   @unique
   path      String
@@ -48,222 +60,89 @@ model Medium {
   userId    Int
 }
 
-model Project {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
-  websites  Website[]
+model Website {
+  id                Int            @id @default(autoincrement())
+  title             String
+  slug              String         @unique
+  faviconFilename   String?        @unique
+  faviconPath       String?
+  faviconMimetype   String?
+  faviconSize       Int?
+  googleAnalyticsId String?
+  metaDescription   String?
+  ogTitle           String?
+  ogDescription     String?
+  ogImageFilename   String?
+  ogImagePath       String?
+  ogImageMimetype   String?
+  ogImageSize       Int?
+  password          String?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  user              User           @relation(fields: [userId], references: [id])
+  userId            Int
+  versions          Version[]
+  CustomDomain      CustomDomain[]
 }
 
-model Website {
-  id        Int        @id @default(autoincrement())
-  title     String
-  slug      String     @unique
-  template  Template   @default(Default)
-  status    PageStatus @default(Draft)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  project   Project    @relation(fields: [projectId], references: [id])
-  projectId Int
+model Version {
+  id        Int           @id @default(autoincrement())
   pages     Page[]
-  fonts     Font[]
-  colors    Color[]
+  status    VersionStatus @default(Draft)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  Website   Website       @relation(fields: [websiteId], references: [id])
+  websiteId Int
 }
 
 model Page {
   id        Int      @id @default(autoincrement())
   slug      String
+  content   Json?
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  website   Website  @relation(fields: [websiteId], references: [id])
-  websiteId Int
-  blocks    Block[]
+  version   Version  @relation(fields: [versionId], references: [id])
+  versionId Int
 
-  @@unique([slug, websiteId])
+  @@unique([slug, versionId])
 }
 
-model Block {
-  id        Int         @id @default(autoincrement())
-  content   Json
-  order     Int
-  status    BlockStatus @default(Draft)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  page      Page        @relation(fields: [pageId], references: [id])
-  pageId    Int
+model Template {
+  id        Int      @id @default(autoincrement())
+  name      String
+  path      String
+  order     Int      @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Font {
-  id         Int        @id @default(autoincrement())
-  role       FontRole
-  size       FontSize
-  weight     FontWeight @default(Regular)
-  italic     Boolean    @default(false)
-  lineHeight LineHeight
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  website    Website    @relation(fields: [websiteId], references: [id])
-  websiteId  Int
+model CustomDomain {
+  id          Int       @id @default(autoincrement())
+  domain      String    @unique
+  requestedAt DateTime?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  website     Website   @relation(fields: [websiteId], references: [id])
+  websiteId   Int
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
 }
 
-model Color {
-  id        Int        @id @default(autoincrement())
-  role      ColorRole
-  base      ColorBase
-  shade     ColorShade
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  website   Website    @relation(fields: [websiteId], references: [id])
-  websiteId Int
+enum AdminType {
+  Super
+  Editor
+  Reader
 }
 
 enum UserType {
   Admin
-  Manager
-  Member
+  General
 }
 
-enum Template {
-  Default
-}
-
-enum PageStatus {
+enum VersionStatus {
   Draft
   Published
   Archived
-}
-
-enum BlockStatus {
-  Draft
-  Published
-  Archived
-}
-
-enum FontRole {
-  HeroTitle
-  HeroSubtitle
-  ThumnailTitle
-  HeadingFirst
-  HeadingSecond
-  HeadingThird
-  HeadingFourth
-  HeroParagraph
-  ThumnailDescription
-  Paragraph
-  ImageCaption
-  NavigationLinks
-  ButtonLabel
-}
-
-enum FontSize {
-  XSmall
-  Small
-  Base
-  Large
-  XLarge
-  TwoXLarge
-  ThreeXLarge
-  FourXLarge
-  FiveXLarge
-  SixXLarge
-  SevenXLarge
-  EightXLarge
-  NineXLarge
-}
-
-enum FontWeight {
-  Thin
-  ExtraLight
-  Light
-  Regular
-  Medium
-  SemiBold
-  Bold
-  ExtraBold
-  Black
-}
-
-enum LineHeight {
-  Three
-  Four
-  Five
-  Six
-  Seven
-  Eight
-  Nine
-  Ten
-  Tight
-  Snug
-  Normal
-  Relaxed
-  Loose
-}
-
-enum ColorRole {
-  HeroTitle
-  HeroSubtitle
-  HeadingFirst
-  HeadingSecond
-  HeadingThird
-  HeadingFourth
-  ThumnailTitle
-  HeroParagraph
-  ThumnailSubtitle
-  Paragraph
-  ImageCaption
-  NavigationItemsDefault
-  NavigationItemsHover
-  ButtonFill
-  ButtonText
-  Hyperlinks
-  Background
-  DividerLines
-}
-
-enum ColorBase {
-  Inherit
-  Current
-  Transparent
-  Black
-  White
-  Slate
-  Gray
-  Zinc
-  Neutral
-  Stone
-  Red
-  Orange
-  Amber
-  Yellow
-  Lime
-  Green
-  Emerald
-  Teal
-  Cyan
-  Sky
-  Blue
-  Indigo
-  Violet
-  Purple
-  Fuchsia
-  Pink
-  Rose
-}
-
-enum ColorShade {
-  S50
-  S100
-  S200
-  S300
-  S400
-  S500
-  S600
-  S700
-  S800
-  S900
-  S950
 }
