@@ -7,10 +7,8 @@ import expressSession from "express-session";
 type Admin = {
   id: number;
   email: string;
-  password: string;
-  provider: string | null;
-  providerId: string | null;
-  providerData: PrismaClient;
+  hashedPassword: string;
+  type: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -40,7 +38,7 @@ passport.use(
         return done(null, false, { message: "Incorrect email or password." });
       }
 
-      const isMatch = await bcrypt.compare(password, admin.password);
+      const isMatch = await bcrypt.compare(password, admin.hashedPassword);
       if (!isMatch) {
         return done(null, false, { message: "Incorrect email or password." });
       }

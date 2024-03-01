@@ -1,8 +1,10 @@
 import express from "express";
-import authRouter from "./routes/auth";
+import adminRouter from "./routes/admin";
 import cookieparser from "cookie-parser";
 import passport from "passport";
 import { session } from "./config/passport";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 const app = express();
 const PORT = 8000;
 
@@ -18,7 +20,13 @@ app.use(passport.session());
 
 app.get("/", (req: express.Request, res: express.Response) => {
   if (req.isAuthenticated()) {
-    return res.render("./pages/index.ejs", { user: req.user });
+    const users = async () => {
+      const users = await prisma.user.findMany().catch((error: Error) => {
+        return res.status(500).json(error);
+      });
+      return res.render("./pages/index.ejs", { users });
+    };
+    users();
   } else {
     return res.render("./pages/login.ejs");
   }
@@ -32,7 +40,7 @@ app.get("/login", (req: express.Request, res: express.Response) => {
   res.render("./pages/login.ejs");
 });
 
-app.use("/auth", authRouter);
+app.use("/admin", adminRouter);
 
 const server = app.listen(PORT, () => {
   console.log(`listening on port ${PORT}!`);
