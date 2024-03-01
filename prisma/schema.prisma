@@ -30,10 +30,10 @@ model User {
   provider        String?
   providerId      String?
   providerData    Json?
-  profileFilename String         @unique
-  profilePath     String
-  profileMimetype String
-  profileSize     Int
+  profileFilename String?        @unique
+  profilePath     String?
+  profileMimetype String?
+  profileSize     Int?
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   websites        Website[]
@@ -98,7 +98,7 @@ model Version {
 model Page {
   id        Int      @id @default(autoincrement())
   slug      String
-  content   Json
+  content   Json?
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -112,7 +112,7 @@ model Template {
   id        Int      @id @default(autoincrement())
   name      String
   path      String
-  order     Int
+  order     Int      @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
