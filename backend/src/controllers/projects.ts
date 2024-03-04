@@ -39,6 +39,7 @@ const createPage = async (req: express.Request, res: express.Response) => {
 
 const updatePage = async (req: express.Request, res: express.Response) => {
   const content = req.body;
+  console.log(content);
   const page = await prisma.page
     .update({
       where: {
