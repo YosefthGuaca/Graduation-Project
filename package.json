@@ -10,7 +10,6 @@
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^10.8.0",
     "concurrently": "^8.2.2",
-    "prisma": "^5.10.2",
     "prisma-erd-generator": "^1.11.2"
   },
   "prisma": {
@@ -23,6 +22,7 @@
   ],
   "dependencies": {
     "@prisma/client": "^5.10.2",
+    "prisma": "^5.10.2",
     "dotenv": "^16.4.5"
   }
 }
