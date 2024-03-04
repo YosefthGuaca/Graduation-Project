@@ -27,13 +27,13 @@ jobs:
           node-version: "18"
 
       - name: Install dependencies
-        run: npm install --prefix ./backend
+        run: cd backend && npm install
 
       - name: Run build
-        run: npm run --prefix ./backend build
+        run: cd backend && npm run build
 
       - name: Run tests
         run: npm run generate && cd backend && npm test
 
       - name: Run lint
-        run: npm run --prefix ./backend lint
+        run: cd backend && npm run lint
