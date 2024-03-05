@@ -6,34 +6,34 @@ on:
       - develop
       - main
     paths:
-      - 'backend/**'
+      - "backend/**"
   pull_request:
     branches:
       - develop
       - main
     paths:
-      - 'backend/**'
+      - "backend/**"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18' 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
 
-    - name: Install dependencies
-      run: npm install --prefix ./backend
+      - name: Install dependencies
+        run: cd backend && npm install
 
-    - name: Run build
-      run: npm run --prefix ./backend build
+      - name: Run build
+        run: cd backend && npm run build
 
-    - name: Run tests
-      run: npm test --prefix ./backend
-      
-    - name: Run lint
-      run: npm run --prefix ./backend lint
+      - name: Run tests
+        run: npm run generate && cd backend && npm test
+
+      - name: Run lint
+        run: cd backend && npm run lint
