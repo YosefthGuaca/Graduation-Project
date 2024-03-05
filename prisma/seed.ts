@@ -68,12 +68,52 @@ async function seed() {
       {
         slug: "home",
         content: {
-          id: 1,
-          data: {
-            assets: [],
-            styles: [],
-            pages: [{ component: "<div>This is the top page</div>" }],
-          },
+          pages: [
+            {
+              id: "bf3zirzqf0Bnk6BR",
+              frames: [
+                {
+                  id: "Pnr8T5RwyEqpHbJn",
+                  component: {
+                    type: "wrapper",
+                    stylable: [
+                      "background",
+                      "background-color",
+                      "background-image",
+                      "background-repeat",
+                      "background-attachment",
+                      "background-position",
+                      "background-size",
+                    ],
+                    attributes: {
+                      id: "iwaj",
+                    },
+                    components: [
+                      {
+                        classes: ["bdg-sect"],
+                        tagName: "section",
+                        components: [
+                          {
+                            type: "text",
+                            classes: ["heading"],
+                            tagName: "h1",
+                            components: [
+                              {
+                                type: "textnode",
+                                content: "This is top page",
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          ],
+          assets: [],
+          styles: [],
         },
         name: "Home",
         versionId: 1,
@@ -81,12 +121,52 @@ async function seed() {
       {
         slug: "about",
         content: {
-          id: 1,
-          data: {
-            assets: [],
-            styles: [],
-            pages: [{ component: "<div>This is the about page</div>" }],
-          },
+          pages: [
+            {
+              id: "bf3zirzqf0Bnk6BR",
+              frames: [
+                {
+                  id: "Pnr8T5RwyEqpHbJn",
+                  component: {
+                    type: "wrapper",
+                    stylable: [
+                      "background",
+                      "background-color",
+                      "background-image",
+                      "background-repeat",
+                      "background-attachment",
+                      "background-position",
+                      "background-size",
+                    ],
+                    attributes: {
+                      id: "iwaj",
+                    },
+                    components: [
+                      {
+                        classes: ["bdg-sect"],
+                        tagName: "section",
+                        components: [
+                          {
+                            type: "text",
+                            classes: ["heading"],
+                            tagName: "h1",
+                            components: [
+                              {
+                                type: "textnode",
+                                content: "This is about page",
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          ],
+          assets: [],
+          styles: [],
         },
         name: "About",
         versionId: 1,
@@ -94,12 +174,52 @@ async function seed() {
       {
         slug: "home",
         content: {
-          id: 1,
-          data: {
-            assets: [],
-            styles: [],
-            pages: [{ component: "<div>This is the top page</div>" }],
-          },
+          pages: [
+            {
+              id: "bf3zirzqf0Bnk6BR",
+              frames: [
+                {
+                  id: "Pnr8T5RwyEqpHbJn",
+                  component: {
+                    type: "wrapper",
+                    stylable: [
+                      "background",
+                      "background-color",
+                      "background-image",
+                      "background-repeat",
+                      "background-attachment",
+                      "background-position",
+                      "background-size",
+                    ],
+                    attributes: {
+                      id: "iwaj",
+                    },
+                    components: [
+                      {
+                        classes: ["bdg-sect"],
+                        tagName: "section",
+                        components: [
+                          {
+                            type: "text",
+                            classes: ["heading"],
+                            tagName: "h1",
+                            components: [
+                              {
+                                type: "textnode",
+                                content: "This is top page",
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          ],
+          assets: [],
+          styles: [],
         },
         name: "Home",
         versionId: 2,
@@ -107,12 +227,52 @@ async function seed() {
       {
         slug: "about",
         content: {
-          id: 1,
-          data: {
-            assets: [],
-            styles: [],
-            pages: [{ component: "<div>This is the about page</div>" }],
-          },
+          pages: [
+            {
+              id: "bf3zirzqf0Bnk6BR",
+              frames: [
+                {
+                  id: "Pnr8T5RwyEqpHbJn",
+                  component: {
+                    type: "wrapper",
+                    stylable: [
+                      "background",
+                      "background-color",
+                      "background-image",
+                      "background-repeat",
+                      "background-attachment",
+                      "background-position",
+                      "background-size",
+                    ],
+                    attributes: {
+                      id: "iwaj",
+                    },
+                    components: [
+                      {
+                        classes: ["bdg-sect"],
+                        tagName: "section",
+                        components: [
+                          {
+                            type: "text",
+                            classes: ["heading"],
+                            tagName: "h1",
+                            components: [
+                              {
+                                type: "textnode",
+                                content: "This is about page",
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          ],
+          assets: [],
+          styles: [],
         },
         name: "About",
         versionId: 2,
