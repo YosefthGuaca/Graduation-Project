@@ -1,23 +1,16 @@
 'use client';
 import React from 'react';
+import axios from 'axios';
 
 const CorsTestPage: React.FC = () => {
   const handleRequest = async (method: string) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/cors-test`, {
+      const response = await axios.request({
+        url: 'cors-test', 
         method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        //body: JSON.stringify({ message: `${method} request sent` }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to ${method}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
+        // data: { message: `${method} request sent` },
+      })
+      console.log(response.data);
     } catch (error) {
       console.error('Error:', error);
     }
