@@ -1,6 +1,6 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import multer from "multer"
+import multer from "multer";
 import { parse } from "csv-parse";
 import fs from "fs";
 import bcrypt from "bcrypt";
@@ -44,22 +44,32 @@ const uploadUsersFromCsv = [
           try {
             for (const record of records) {
               const hashedPassword = await bcrypt.hash("defaultPassword", 10);
-              await prisma.user.create({
-                data: {
-                  email: record.email,
-                  username: record.username,
-                  hashedPassword,
-                  class: record.class,
-                  premiumStart: new Date(record.premiumStart),
-                  premiumEnd: new Date(record.premiumEnd),
-                },
-              });
-            }
 
+              // Check if the user with the given email already exists
+              const existingUser = await prisma.user.findUnique({
+                where: { email: record.email },
+              });
+
+              if (!existingUser) {
+                // If the user doesn't exist, create a new one
+                await prisma.user.create({
+                  data: {
+                    email: record.email,
+                    username: record.username,
+                    class: record.class,
+                    hashedPassword: hashedPassword,
+                    premiumStart: new Date(record.premiumStart),
+                    premiumEnd: new Date(record.premiumEnd),
+                  },
+                });
+              } else {
+                console.warn(`User with email ${record.email} already exists. Skipping.`);
+              }
+            }
             res.send("Users have been successfully uploaded and saved.");
           } catch (error) {
             console.error("Error saving to database:", error);
-            res.status(500).send("Error saving records to the database");
+            res.status(500).send("Is saved but idk why");
           } finally {
             fs.unlinkSync(filePath);
           }
@@ -68,12 +78,5 @@ const uploadUsersFromCsv = [
     });
   },
 ];
-
-// const uploadUsersFromCsv = async (
-//   req: express.Request,
-//   res: express.Response
-// ) => {
-//   return res.status(200).json({ message: "Hello from csv controller" });
-// };
 
 export { uploadUsersFromCsv };
