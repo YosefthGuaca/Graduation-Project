@@ -69,7 +69,7 @@ const uploadUsersFromCsv = [
             res.send("Users have been successfully uploaded and saved.");
           } catch (error) {
             console.error("Error saving to database:", error);
-            res.status(500).send("Is saved but idk why");
+            res.status(500).send("Error saving records to the database");
           } finally {
             fs.unlinkSync(filePath);
           }
