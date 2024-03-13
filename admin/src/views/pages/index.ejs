@@ -22,6 +22,7 @@
                     <th scope="col">Class</th>
                     <th scope="col">Premium Start</th>
                     <th scope="col">Premium End</th>
+                    <th scope="col">Actions</th> <!-- Columna de acciones -->
                 </tr>
             </thead>
             <tbody id="userList">
@@ -33,11 +34,15 @@
                             <td><%= user.class %></td>
                             <td><%= user.premiumStart ? user.premiumStart.toDateString() : 'N/A' %></td>
                             <td><%= user.premiumEnd ? user.premiumEnd.toDateString() : 'N/A' %></td>
+                            <td>
+                                <button class="btn btn-primary btn-sm edit-btn" data-user-id="<%= user.id %>">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-btn" data-user-id="<%= user.id %>">Delete</button>
+                            </td>
                         </tr>
                     <% }) %>
                 <% } else { %>
                     <tr>
-                        <td colspan="5">No users found.</td>
+                        <td colspan="6">No users found.</td>
                     </tr>
                 <% } %>
             </tbody>
@@ -75,6 +80,7 @@
                 }
             });
         });
+
     </script>
 </body>
 </html>
