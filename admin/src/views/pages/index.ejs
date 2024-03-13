@@ -8,12 +8,15 @@
 </head>
 <body>
     <div class="container mt-5">
+        <!-- Logout form -->
         <form action="/admin/logout" method="post">
             <button type="submit" class="btn btn-primary mb-4">Logout</button>
         </form>
 
+        <!-- Search input field -->
         <input type="text" id="searchInput" class="form-control mb-4" placeholder="Search...">
 
+        <!-- Table to display user data -->
         <table class="table">
             <thead>
                 <tr>
@@ -22,7 +25,7 @@
                     <th scope="col">Class</th>
                     <th scope="col">Premium Start</th>
                     <th scope="col">Premium End</th>
-                    <th scope="col">Actions</th> <!-- Columna de acciones -->
+                    <th scope="col">Actions</th> 
                 </tr>
             </thead>
             <tbody id="userList">
@@ -34,6 +37,8 @@
                             <td><%= user.class %></td>
                             <td><%= user.premiumStart ? user.premiumStart.toDateString() : 'N/A' %></td>
                             <td><%= user.premiumEnd ? user.premiumEnd.toDateString() : 'N/A' %></td>
+
+                            <!-- Edit and delete buttons (Is not working yet) also checkbox is missing -->
                             <td>
                                 <button class="btn btn-primary btn-sm edit-btn" data-user-id="<%= user.id %>">Edit</button>
                                 <button class="btn btn-danger btn-sm delete-btn" data-user-id="<%= user.id %>">Delete</button>
@@ -48,6 +53,7 @@
             </tbody>
         </table>
 
+        <!-- Section for uploading CSV file -->
         <h1 class="mt-5">Upload CSV File</h1>
         <form action="/csv/upload" method="post" enctype="multipart/form-data" class="mb-4"> 
             <div class="input-group">
@@ -56,9 +62,9 @@
             </div>
         </form>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // I'll move this part
         document.getElementById('searchInput').addEventListener('input', function() {
             const searchTerm = this.value.trim().toLowerCase();
             const userRows = document.querySelectorAll('.user-row');

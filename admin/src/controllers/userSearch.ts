@@ -1,15 +1,16 @@
-
 import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+// function to handle user search
 const userSearch = async (req: Request, res: Response) => {
     const { searchTerm } = req.query;
 
     try {
         const users = await prisma.user.findMany({
             where: {
+            
                 OR: [
                     { username: { contains: searchTerm as string } },
                     { email: { contains: searchTerm as string } },
