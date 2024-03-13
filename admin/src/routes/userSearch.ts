@@ -1,6 +1,6 @@
 
 import express from 'express';
-import { userSearch } from '..controllers/userSearch'
+import { userSearch } from '../controllers/userSearch'
 
 const router = express.Router();
 
