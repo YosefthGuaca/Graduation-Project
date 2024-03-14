@@ -17,7 +17,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 5
+    env:
+      DATABASE_URL: "postgresql://postgresql:password@localhost:5432/db"
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: db
+          POSTGRES_USER: postgresql
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v2
 
@@ -32,8 +49,12 @@ jobs:
       - name: Run build
         run: cd admin && npm run build
 
+      - run: npm run generate
+      - run: npx prisma migrate dev
+      - run: npx prisma db seed
+
       - name: Run tests
-        run: npm run generate && cd admin && npm test
+        run: cd admin && npm test
 
       - name: Run lint
         run: cd admin && npm run lint
