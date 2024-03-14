@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import corsRoutes from "./routes/corsRoutes";
 import projectsRoutes from "./routes/projects";
+import publicRoutes from "./routes/publicRoutes";
 import cors from "cors";
 const corsOptions = {
   origin: "http://localhost:3000",
@@ -25,9 +26,9 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api", corsRoutes);
 app.use("/projects", projectsRoutes);
+app.use("/u", publicRoutes);
 
 const server = app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
-
 export default server;

@@ -1,6 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import fs from "fs";
+import path from "path";
+
 const prisma = new PrismaClient();
+const websiteSlug = "my-first-website";
 
 async function seed() {
   await prisma.admin.createMany({
@@ -40,7 +44,7 @@ async function seed() {
     data: [
       {
         title: "My First Website",
-        slug: "my-first-website",
+        slug: websiteSlug,
         userId: 1,
       },
     ],
@@ -66,213 +70,37 @@ async function seed() {
   await prisma.page.createMany({
     data: [
       {
-        slug: "home",
+        slug: "index",
         content: {
-          pages: [
-            {
-              id: "bf3zirzqf0Bnk6BR",
-              frames: [
-                {
-                  id: "Pnr8T5RwyEqpHbJn",
-                  component: {
-                    type: "wrapper",
-                    stylable: [
-                      "background",
-                      "background-color",
-                      "background-image",
-                      "background-repeat",
-                      "background-attachment",
-                      "background-position",
-                      "background-size",
-                    ],
-                    attributes: {
-                      id: "iwaj",
-                    },
-                    components: [
-                      {
-                        classes: ["bdg-sect"],
-                        tagName: "section",
-                        components: [
-                          {
-                            type: "text",
-                            classes: ["heading"],
-                            tagName: "h1",
-                            components: [
-                              {
-                                type: "textnode",
-                                content: "This is top page",
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          ],
-          assets: [],
-          styles: [],
+          components: [{ tagName: "h1", content: "Hello, this is Top page!" }],
         },
-        name: "Home",
+        name: "Top",
         versionId: 1,
       },
       {
         slug: "about",
         content: {
-          pages: [
-            {
-              id: "bf3zirzqf0Bnk6BR",
-              frames: [
-                {
-                  id: "Pnr8T5RwyEqpHbJn",
-                  component: {
-                    type: "wrapper",
-                    stylable: [
-                      "background",
-                      "background-color",
-                      "background-image",
-                      "background-repeat",
-                      "background-attachment",
-                      "background-position",
-                      "background-size",
-                    ],
-                    attributes: {
-                      id: "iwaj",
-                    },
-                    components: [
-                      {
-                        classes: ["bdg-sect"],
-                        tagName: "section",
-                        components: [
-                          {
-                            type: "text",
-                            classes: ["heading"],
-                            tagName: "h1",
-                            components: [
-                              {
-                                type: "textnode",
-                                content: "This is about page",
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
+          components: [
+            { tagName: "h1", content: "Hello, this is About page!" },
           ],
-          assets: [],
-          styles: [],
         },
         name: "About",
         versionId: 1,
       },
       {
-        slug: "home",
+        slug: "index",
         content: {
-          pages: [
-            {
-              id: "bf3zirzqf0Bnk6BR",
-              frames: [
-                {
-                  id: "Pnr8T5RwyEqpHbJn",
-                  component: {
-                    type: "wrapper",
-                    stylable: [
-                      "background",
-                      "background-color",
-                      "background-image",
-                      "background-repeat",
-                      "background-attachment",
-                      "background-position",
-                      "background-size",
-                    ],
-                    attributes: {
-                      id: "iwaj",
-                    },
-                    components: [
-                      {
-                        classes: ["bdg-sect"],
-                        tagName: "section",
-                        components: [
-                          {
-                            type: "text",
-                            classes: ["heading"],
-                            tagName: "h1",
-                            components: [
-                              {
-                                type: "textnode",
-                                content: "This is top page",
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          ],
-          assets: [],
-          styles: [],
+          components: [{ tagName: "h1", content: "Hello, this is Top page!" }],
         },
-        name: "Home",
+        name: "Top",
         versionId: 2,
       },
       {
         slug: "about",
         content: {
-          pages: [
-            {
-              id: "bf3zirzqf0Bnk6BR",
-              frames: [
-                {
-                  id: "Pnr8T5RwyEqpHbJn",
-                  component: {
-                    type: "wrapper",
-                    stylable: [
-                      "background",
-                      "background-color",
-                      "background-image",
-                      "background-repeat",
-                      "background-attachment",
-                      "background-position",
-                      "background-size",
-                    ],
-                    attributes: {
-                      id: "iwaj",
-                    },
-                    components: [
-                      {
-                        classes: ["bdg-sect"],
-                        tagName: "section",
-                        components: [
-                          {
-                            type: "text",
-                            classes: ["heading"],
-                            tagName: "h1",
-                            components: [
-                              {
-                                type: "textnode",
-                                content: "This is about page",
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
+          components: [
+            { tagName: "h1", content: "Hello, this is About page!" },
           ],
-          assets: [],
-          styles: [],
         },
         name: "About",
         versionId: 2,
@@ -290,3 +118,21 @@ seed()
     await prisma.$disconnect();
     process.exit(1);
   });
+
+const publicFilePath = path.join(
+  __dirname,
+  "..",
+  "backend",
+  "tmp",
+  "public",
+  websiteSlug
+);
+fs.mkdirSync(publicFilePath, { recursive: true });
+fs.writeFileSync(
+  path.join(publicFilePath, "index.html"),
+  `<h1>Hello, this is index page.</h1>`
+);
+fs.writeFileSync(
+  path.join(publicFilePath, "about.html"),
+  `<h1>Hello, this is about page.</h1>`
+);
