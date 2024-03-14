@@ -21,6 +21,7 @@ const testUser: User = {
   profilePath: "profilePath",
   profileMimetype: "profileMimetype",
   profileSize: 100,
+  class: "class",
   createdAt: new Date(),
   updatedAt: new Date(),
 };
