@@ -17,7 +17,7 @@ const getPage = async (req: express.Request, res: express.Response) => {
       return res.status(500).json(error);
     });
 
-  return res.status(200).json(projects);
+  return res.status(200).json(projects || []);
 };
 
 const createPage = async (req: express.Request, res: express.Response) => {
@@ -34,27 +34,26 @@ const createPage = async (req: express.Request, res: express.Response) => {
       return res.status(500).json(error);
     });
 
-  return res.status(201).json(page);
+  return res.status(201).json(page || []);
 };
 
 const updatePage = async (req: express.Request, res: express.Response) => {
   const content = req.body;
-  console.log(content);
   const page = await prisma.page
     .update({
       where: {
         id: 1,
       },
       data: {
-        slug: "slug",
         content,
-        name: "name",
-        versionId: 1,
       },
     })
     .catch((error: Error) => {
       return res.status(500).json(error);
     });
+  if (!page) {
+    return res.status(404).json({ message: "Page not found" });
+  }
 
   return res.status(200).json(page);
 };
