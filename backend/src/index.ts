@@ -23,11 +23,11 @@ app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: "Hello World!" });
 });
 
+app.use("/api", corsRoutes);
+app.use("/projects", projectsRoutes);
+
 const server = app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
-
-app.use("/api", corsRoutes);
-app.use("/projects", projectsRoutes);
 
 export default server;
