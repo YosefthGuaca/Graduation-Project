@@ -8,6 +8,7 @@ _Program Project Kickoff_ document has been moved. [docs/kick_off](/docs/kick_of
 
 ```sh
 npm run setup
+npm run prepare
 cp .env.example .env
 ```
 
