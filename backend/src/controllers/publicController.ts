@@ -16,7 +16,7 @@ const getPublic = async (req: express.Request, res: express.Response) => {
     "tmp",
     "public",
     websiteSlug,
-    filename
+    filename,
   );
 
   fs.access(filePath, fs.constants.F_OK, (err) => {

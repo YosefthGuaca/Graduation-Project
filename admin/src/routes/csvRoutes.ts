@@ -1,5 +1,5 @@
 import express from "express";
-import { uploadUsersFromCsv } from "../controllers/csv";
+import { uploadUsersFromCsv } from "../controllers/csvController";
 
 const router = express.Router();
 
