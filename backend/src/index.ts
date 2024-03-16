@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import corsRoutes from "./routes/corsRoutes";
 import projectsRoutes from "./routes/projects";
 import publicRoutes from "./routes/publicRoutes";
-import usersRoutes from "./routes/usersRoutes";
+import usersRoutes from "./routes/userRoutes";
 import cors from "cors";
 import cookieparser from "cookie-parser";
 import passport from "passport";
