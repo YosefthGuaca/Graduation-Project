@@ -36,7 +36,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api", corsRoutes);
 app.use("/projects", projectsRoutes);
 app.use("/u", publicRoutes);
-app.use("/users", usersRoutes);
+app.use("/api/users", usersRoutes);
 
 const server = app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
