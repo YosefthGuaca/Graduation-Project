@@ -5,7 +5,8 @@
     "test": "npm run test --workspaces",
     "lint": "npm run lint --workspaces",
     "format": "npm run format --workspaces",
-    "dev": "concurrently --names \"backend,frontend,admin\" --prefix \"[{name}]\" --prefix-colors \"cyan,magenta,green\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\" \"npm run dev --prefix admin\""
+    "dev": "concurrently --names \"backend,frontend,admin\" --prefix \"[{name}]\" --prefix-colors \"cyan,magenta,green\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\" \"npm run dev --prefix admin\"",
+    "prepare": "husky"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -26,11 +27,5 @@
     "husky": "^9.0.11",
     "prisma": "^5.10.2",
     "prisma-erd-generator": "^1.11.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run test"
-    }
   }
 }
