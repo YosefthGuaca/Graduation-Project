@@ -44,8 +44,8 @@ passport.use(
       }
 
       return done(null, admin);
-    }
-  )
+    },
+  ),
 );
 
 passport.serializeUser((admin: Express.User, done) => {

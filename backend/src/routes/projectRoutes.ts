@@ -1,4 +1,8 @@
-import { createPage, getPage, updatePage } from "../controllers/projects";
+import {
+  createPage,
+  getPage,
+  updatePage,
+} from "../controllers/projectController";
 import express from "express";
 
 const router = express.Router();

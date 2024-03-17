@@ -6,7 +6,6 @@ import passport from "passport";
 
 const signup = async (req: express.Request, res: express.Response) => {
   const { email, password } = req.body;
-  console.log(email, password);
 
   const existingAdmin = await prisma.admin.findUnique({
     where: {

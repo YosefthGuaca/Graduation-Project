@@ -1,10 +1,10 @@
 import express from "express";
-import adminRouter from "./routes/admin";
+import adminRouter from "./routes/adminRoutes";
 import cookieparser from "cookie-parser";
 import passport from "passport";
 import { session } from "./config/passport";
 import { PrismaClient } from "@prisma/client";
-import csvRouter from "./routes/csv";
+import csvRouter from "./routes/csvRoutes";
 
 const prisma = new PrismaClient();
 const app = express();
@@ -27,26 +27,24 @@ app.get("/", (req: express.Request, res: express.Response) => {
       const users = await prisma.user.findMany().catch((error: Error) => {
         return res.status(500).json(error);
       });
-      return res.render("./pages/index.ejs", { users });
+      return res.render("./index.ejs", { users });
     };
     users();
   } else {
-    return res.render("./pages/login.ejs");
+    return res.render("./login.ejs");
   }
 });
 
 app.get("/signup", (req: express.Request, res: express.Response) => {
-  res.render("./pages/signup.ejs");
+  res.render("./signup.ejs");
 });
 
 app.get("/login", (req: express.Request, res: express.Response) => {
-  res.render("./pages/login.ejs");
+  res.render("./login.ejs");
 });
 
 app.use("/admin", adminRouter);
 
-const server = app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}!`);
-});
+const server = app.listen(PORT, () => {});
 
 export default server;

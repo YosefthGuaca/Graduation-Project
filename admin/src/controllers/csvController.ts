@@ -63,7 +63,9 @@ const uploadUsersFromCsv = [
                   },
                 });
               } else {
-                console.warn(`User with email ${record.email} already exists. Skipping.`);
+                console.warn(
+                  `User with email ${record.email} already exists. Skipping.`,
+                );
               }
             }
             res.send("Users have been successfully uploaded and saved.");
@@ -73,7 +75,7 @@ const uploadUsersFromCsv = [
           } finally {
             fs.unlinkSync(filePath);
           }
-        }
+        },
       );
     });
   },

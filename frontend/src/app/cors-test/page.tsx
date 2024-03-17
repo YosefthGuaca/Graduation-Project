@@ -6,10 +6,10 @@ const CorsTestPage: React.FC = () => {
   const handleRequest = async (method: string) => {
     try {
       const response = await axios.request({
-        url: 'cors-test', 
+        url: 'cors-test',
         method,
         // data: { message: `${method} request sent` },
-      })
+      });
       console.log(response.data);
     } catch (error) {
       console.error('Error:', error);
