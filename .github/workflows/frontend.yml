@@ -18,6 +18,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 2
+    env:
+      HUSKY: 0
     steps:
       - uses: actions/checkout@v2
 
