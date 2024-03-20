@@ -41,7 +41,7 @@ const signup = async (req: express.Request, res: express.Response) => {
 const login = (
   req: express.Request,
   res: express.Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   passport.authenticate("local", (err: Error, user: Express.User) => {
     if (err) {

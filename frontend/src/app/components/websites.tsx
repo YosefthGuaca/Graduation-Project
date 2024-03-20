@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Website } from '@prisma/client';
 
 const Websites = () => {
-  const [websites, setWebsites] = useState([]);
+  const [websites, setWebsites] = useState<Website[]>([]);
 
   useEffect(() => {
     async function fetchWebsites() {
@@ -22,7 +23,7 @@ const Websites = () => {
       <ul>
         {websites.map((website) => (
           <li key={website.id}>
-            <a href={`/q/${website.slug}/page`}>{website.name}</a>
+            <a href={`/q/${website.slug}/page`}>{website.title}</a>
           </li>
         ))}
       </ul>
