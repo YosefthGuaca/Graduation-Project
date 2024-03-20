@@ -5,5 +5,4 @@ module.exports = {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
   testPathIgnorePatterns: ["<rootDir>/dist/", "<rootDir>/node_modules/"],
-  setupFilesAfterEnv: ["<rootDir>/src/test/jestContext.ts"],
 };

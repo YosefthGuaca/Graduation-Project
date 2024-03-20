@@ -20,6 +20,7 @@ jobs:
     timeout-minutes: 5
     env:
       DATABASE_URL: "postgresql://postgresql:password@localhost:5432/db"
+      HUSKY: 0
     services:
       postgres:
         image: postgres:latest
@@ -51,7 +52,6 @@ jobs:
 
       - run: npm run generate
       - run: npx prisma migrate dev
-      - run: npx prisma db seed
 
       - name: Run tests
         run: cd admin && npm test
