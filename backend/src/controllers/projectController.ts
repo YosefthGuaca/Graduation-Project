@@ -1,6 +1,5 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from "../client";
 
 const getPage = async (req: express.Request, res: express.Response) => {
   const { id } = req.params;

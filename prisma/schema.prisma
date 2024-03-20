@@ -23,7 +23,7 @@ model User {
   id              Int            @id @default(autoincrement())
   email           String         @unique
   username        String
-  class           String? 
+  class           String?
   hashedPassword  String
   type            UserType       @default(General)
   premiumStart    DateTime?
@@ -31,7 +31,7 @@ model User {
   provider        String?
   providerId      String?
   providerData    Json?
-  profileFilename String?        @unique
+  profileFilename String?
   profilePath     String?
   profileMimetype String?
   profileSize     Int?
@@ -54,7 +54,7 @@ model UserLoginLog {
 
 model Asset {
   id        Int      @id @default(autoincrement())
-  filename  String   @unique
+  filename  String
   path      String
   mimetype  String
   size      Int
@@ -68,7 +68,7 @@ model Website {
   id                 Int            @id @default(autoincrement())
   title              String
   slug               String         @unique
-  faviconFilename    String?        @unique
+  faviconFilename    String?
   faviconPath        String?
   faviconMimetype    String?
   faviconSize        Int?
