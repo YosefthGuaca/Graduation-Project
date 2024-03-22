@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '@/axios';
 import { Website } from '@prisma/client';
 
 const Websites = () => {
@@ -8,7 +10,7 @@ const Websites = () => {
   useEffect(() => {
     async function fetchWebsites() {
       try {
-        const response = await axios.get('/api/websites');
+        const response = await axios.get('/websites');
         setWebsites(response.data);
       } catch (error) {
         console.error('Error fetching websites:', error);
@@ -23,7 +25,7 @@ const Websites = () => {
       <ul>
         {websites.map((website) => (
           <li key={website.id}>
-            <a href={`/q/${website.slug}/page`}>{website.title}</a>
+            <a href={`/home/q/${website.slug}/page`}>{website.title}</a>
           </li>
         ))}
       </ul>

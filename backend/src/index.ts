@@ -4,6 +4,7 @@ import corsRoutes from "./routes/corsRoutes";
 import projectsRoutes from "./routes/projectRoutes";
 import publicRoutes from "./routes/publicRoutes";
 import usersRoutes from "./routes/userRoutes";
+import websiteRoutes from "./routes/websiteRoutes";
 import cors from "cors";
 import cookieparser from "cookie-parser";
 import passport from "passport";
@@ -37,6 +38,7 @@ app.use("/api", corsRoutes);
 app.use("/projects", projectsRoutes);
 app.use("/u", publicRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/websites", websiteRoutes);
 
 const server = app.listen(port, () => {});
 export default server;
