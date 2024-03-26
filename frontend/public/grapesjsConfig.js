@@ -18,9 +18,23 @@ const getProjectData = async () => {
 
 const initEditor = () => {
   const editor = grapesjs.init({
+    fromElement: 1,
     container: '#gjs',
-    plugins: ['grapesjs-preset-webpage'],
+    plugins: [
+      'grapesjs-preset-webpage',
+      'gjs-blocks-basic',
+      'grapesjs-plugin-forms',
+      'grapesjs-component-countdown',
+      'grapesjs-plugin-export',
+      'grapesjs-custom-code',
+      'grapesjs-touch',
+      'grapesjs-parser-postcss',
+      'grapesjs-tooltip',
+      'grapesjs-tui-image-editor',
+      'grapesjs-style-bg',
+    ],
     projectData: projectData,
+    assetManager: {},
     storageManager: {
       type: 'remote',
       stepsBeforeSave: 1,
