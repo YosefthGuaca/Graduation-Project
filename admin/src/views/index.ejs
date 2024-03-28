@@ -59,8 +59,33 @@
                 <% } %>
             </tbody>
         </table>
-
-        <!-- Section for uploading CSV file -->
+        <button class="btn btn-success mb-3" id="addUserBtn">Add User</button>
+        <div id="addUserTable" style="display: none;">
+            <h2>Add User</h2>
+            <form action="/admin/adduser" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="class" class="form-label">Class</label>
+                    <input type="text" class="form-control" id="class" name="class" required>
+                </div>
+                <div class="mb-3">
+                    <label for="premiumStart" class="form-label">Premium Start</label>
+                    <input type="date" class="form-control" id="premiumStart" name="premiumStart">
+                </div>
+                <div class="mb-3">
+                    <label for="premiumEnd" class="form-label">Premium End</label>
+                    <input type="date" class="form-control" id="premiumEnd" name="premiumEnd">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
         <h1 class="mt-5">Upload CSV File</h1>
         <form action="/csv/upload" method="post" enctype="multipart/form-data" class="mb-4"> 
             <div class="input-group">
@@ -99,6 +124,12 @@
                     row.style.display = 'none';
                 }
             });
+        });
+
+        // "Add User"
+        document.getElementById('addUserBtn').addEventListener('click', function() {
+            const addUserTable = document.getElementById('addUserTable');
+            addUserTable.style.display = (addUserTable.style.display === 'none') ? 'block' : 'none';
         });
     </script>
 </body>
