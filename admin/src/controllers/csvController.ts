@@ -1,14 +1,15 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 import multer from "multer";
 import { parse } from "csv-parse";
 import fs from "fs";
-import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
 const upload = multer({ dest: "upload" });
 
+// Interface for CSV user records
 interface CsvUserRecord {
   username: string;
   email: string;
@@ -17,6 +18,50 @@ interface CsvUserRecord {
   premiumEnd: string;
 }
 
+const app = express();
+app.use(express.json());
+
+// Controller to add a user individually
+app.post("/admin/adduser", async (req, res) => {
+  const { username, email, class: userClass, premiumStart, premiumEnd } = req.body;
+
+  // Validate user data
+  if (!username || !email) {
+    return res.status(400).json({ error: "Username and email are required fields." });
+  }
+
+  try {
+    // Check if the user already exists in the database
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      console.warn(`User with email ${email} already exists. Skipping.`);
+      return res.status(409).json({ error: "User already exists." });
+    }
+
+    // Create a new user in the database using Prisma
+    const hashedPassword = await bcrypt.hash("defaultPassword", 10);
+    const newUser = await prisma.user.create({
+      data: {
+        email,
+        username,
+        class: userClass,
+        hashedPassword,
+        premiumStart: premiumStart ? new Date(premiumStart) : undefined,
+        premiumEnd: premiumEnd ? new Date(premiumEnd) : undefined,
+      },
+    });
+
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error("Error creating user:", error);
+    res.status(500).json({ error: "An error occurred while creating the user." });
+  }
+});
+
+// Controller to upload users from CSV (existing code)
 const uploadUsersFromCsv = [
   upload.single("csvfile"),
   async (req: express.Request, res: express.Response) => {
@@ -81,4 +126,5 @@ const uploadUsersFromCsv = [
   },
 ];
 
+// Export both controllers
 export { uploadUsersFromCsv };
