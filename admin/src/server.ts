@@ -4,7 +4,7 @@ import cookieparser from "cookie-parser";
 import passport from "passport";
 import { session } from "./config/passport";
 import { PrismaClient } from "@prisma/client";
-import csvRouter from "./routes/csvRoutes";
+import csvRoutes from "./routes/csvRoutes";
 
 const prisma = new PrismaClient();
 const app = express();
@@ -16,7 +16,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieparser());
-app.use("/csv", csvRouter);
+app.use("/csv", csvRoutes);
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());

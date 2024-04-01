@@ -1,3 +1,4 @@
+// Import necessary modules
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
@@ -5,8 +6,10 @@ import multer from "multer";
 import { parse } from "csv-parse";
 import fs from "fs";
 
+// Define Prisma client instance
 const prisma = new PrismaClient();
 
+// Initialize multer for file upload
 const upload = multer({ dest: "upload" });
 
 // Interface for CSV user records
@@ -18,11 +21,12 @@ interface CsvUserRecord {
   premiumEnd: string;
 }
 
-const app = express();
-app.use(express.json());
+// Initialize Express router
+const router = express.Router();
 
 // Controller to add a user individually
-app.post("/admin/adduser", async (req, res) => {
+router.post("/adduser", async (req, res) => {
+  // Extract user data from request body
   const { username, email, class: userClass, premiumStart, premiumEnd } = req.body;
 
   // Validate user data
@@ -54,6 +58,7 @@ app.post("/admin/adduser", async (req, res) => {
       },
     });
 
+    // Return the newly created user in the response
     res.status(201).json(newUser);
   } catch (error) {
     console.error("Error creating user:", error);
@@ -61,10 +66,11 @@ app.post("/admin/adduser", async (req, res) => {
   }
 });
 
-// Controller to upload users from CSV (existing code)
+// Controller to upload users from CSV
 const uploadUsersFromCsv = [
   upload.single("csvfile"),
   async (req: express.Request, res: express.Response) => {
+    // Check if a file was uploaded
     if (!req.file) {
       return res.status(400).send("No file was uploaded.");
     }
@@ -118,6 +124,7 @@ const uploadUsersFromCsv = [
             console.error("Error saving to database:", error);
             res.status(500).send("Error saving records to the database");
           } finally {
+            // Delete the uploaded file
             fs.unlinkSync(filePath);
           }
         },
@@ -127,4 +134,4 @@ const uploadUsersFromCsv = [
 ];
 
 // Export both controllers
-export { uploadUsersFromCsv };
+export { router as csvController, uploadUsersFromCsv };

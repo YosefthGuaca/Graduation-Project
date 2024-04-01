@@ -59,10 +59,11 @@
                 <% } %>
             </tbody>
         </table>
+
         <button class="btn btn-success mb-3" id="addUserBtn">Add User</button>
         <div id="addUserTable" style="display: none;">
             <h2>Add User</h2>
-            <form action="/admin/adduser" method="post">
+            <form action="/csv/adduser" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" required>
