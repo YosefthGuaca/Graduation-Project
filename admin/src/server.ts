@@ -5,6 +5,7 @@ import passport from "passport";
 import { session } from "./config/passport";
 import { PrismaClient } from "@prisma/client";
 import csvRoutes from "./routes/csvRoutes";
+import  userRoutes from "./routes/userRoutes"
 
 const prisma = new PrismaClient();
 const app = express();
@@ -17,9 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieparser());
 app.use("/csv", csvRoutes);
+app.use("/users", userRoutes);
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.get("/", (req: express.Request, res: express.Response) => {
   if (req.isAuthenticated()) {
@@ -41,9 +44,27 @@ app.get("/signup", (req: express.Request, res: express.Response) => {
 
 app.get("/login", (req: express.Request, res: express.Response) => {
   res.render("./login.ejs");
+
+});
+
+app.get("/users/:userId", async (req, res) => {
+  const userId = parseInt(req.params.userId);
+  try {
+   
+    await prisma.user.delete({
+      where: {
+        id: userId,
+      },
+    });
+    res.status(204).send(); 
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.use("/admin", adminRouter);
+
 
 const server = app.listen(PORT, () => {});
 
