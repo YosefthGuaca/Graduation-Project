@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import axios from '@/axios';
 import { Website } from '@prisma/client';
+import axiosInstance from '@/axios';
 
 const Websites = () => {
   const [websites, setWebsites] = useState<Website[]>([]);
@@ -10,7 +10,7 @@ const Websites = () => {
   useEffect(() => {
     async function fetchWebsites() {
       try {
-        const response = await axios.get('/websites');
+        const response = await axiosInstance.get('/websites');
         setWebsites(response.data);
       } catch (error) {
         console.error('Error fetching websites:', error);

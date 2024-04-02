@@ -9,17 +9,16 @@ import cors from "cors";
 import cookieparser from "cookie-parser";
 import passport from "passport";
 import { session } from "./config/passport";
+
+dotenv.config();
+const app: Express = express();
+
 const corsOptions = {
-  origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
-  credentials: true,
-  methods: "GET, POST, DELETE, PATCH, PUT",
+  methods: "GET, POST, DELETE, PATCH, PUT, OPTIONS",
   allowedHeaders: ["Content-Type"],
 };
 
-dotenv.config();
-
-const app: Express = express();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
