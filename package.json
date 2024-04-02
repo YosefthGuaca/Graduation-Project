@@ -19,10 +19,12 @@
   "dependencies": {
     "@prisma/client": "^5.10.2",
     "dotenv": "^16.4.5",
+    "nodemailer": "^6.9.13",
     "setup": "^0.0.3"
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^10.8.0",
+    "@types/nodemailer": "^6.4.14",
     "concurrently": "^8.2.2",
     "husky": "^9.0.11",
     "prisma": "^5.10.2",
