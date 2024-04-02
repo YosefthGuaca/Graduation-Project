@@ -14,12 +14,16 @@
         </form>
 
         <!-- Search input field -->
-        <input type="text" id="searchInput" class="form-control mb-4" placeholder="Search...">
+        <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search...">
 
         <!-- Table to display user data -->
         <table class="table">
             <thead>
                 <tr>
+                    <th scope="col">
+                        <!-- Checkbox for all -->
+                        <input type="checkbox" id="selectAllCheckbox">
+                    </th>
                     <th scope="col">Username</th>
                     <th scope="col">Email</th>
                     <th scope="col">Class</th>
@@ -32,28 +36,92 @@
                 <% if (users && users.length > 0) { %>
                     <% users.forEach(user => { %>
                         <tr class="user-row">
+                            <td>
+                                <!-- Checkbox individual -->
+                                <input type="checkbox" class="user-checkbox">
+                            </td>
                             <td><%= user.username %></td>
                             <td><%= user.email %></td>
                             <td><%= user.class %></td>
                             <td><%= user.premiumStart ? user.premiumStart.toDateString() : 'N/A' %></td>
                             <td><%= user.premiumEnd ? user.premiumEnd.toDateString() : 'N/A' %></td>
-
-                            <!-- Edit and delete buttons (Is not working yet) also checkbox is missing -->
                             <td>
-                                <button class="btn btn-primary btn-sm edit-btn" data-user-id="<%= user.id %>">Edit</button>
-                                <button class="btn btn-danger btn-sm delete-btn" data-user-id="<%= user.id %>">Delete</button>
+                                <button class="btn btn-primary btn-sm edit-btn" 
+                                        data-user-id="<%= user.id %>"
+                                        data-username="<%= user.username %>"
+                                        data-email="<%= user.email %>"
+                                        data-class="<%= user.class %>"
+                                        data-premium-start="<%= user.premiumStart ? user.premiumStart.toISOString().split('T')[0] : '' %>"
+                                        data-premium-end="<%= user.premiumEnd ? user.premiumEnd.toISOString().split('T')[0] : '' %>">
+                                    Edit
+                                </button>
+                                <button class="btn btn-danger btn-sm delete-btn" onclick="confirmDelete('<%= user.username %>', '<%= user.id %>')">Delete</button>
+                                <button class="btn btn-warning btn-sm alert-btn" data-user-id="<%= user.id %>">Send Invitation</button>
                             </td>
                         </tr>
                     <% }) %>
                 <% } else { %>
                     <tr>
-                        <td colspan="6">No users found.</td>
+                        <td colspan="7">No users found.</td>
                     </tr>
                 <% } %>
             </tbody>
         </table>
-
-        <!-- Section for uploading CSV file -->
+        <!-- edit user -->
+        <div id="editUserForm" style="display: none;">
+            <h2>Edit User</h2>
+            <form id="editUserForm" action="/users/${userId}" method="put">
+                <div class="mb-3">
+                    <label for="editUsername" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="editUsername" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="editEmail" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editClass" class="form-label">Class</label>
+                    <input type="text" class="form-control" id="editClass" name="class" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editPremiumStart" class="form-label">Premium Start</label>
+                    <input type="date" class="form-control" id="editPremiumStart" name="premiumStart">
+                </div>
+                <div class="mb-3">
+                    <label for="editPremiumEnd" class="form-label">Premium End</label>
+                    <input type="date" class="form-control" id="editPremiumEnd" name="premiumEnd">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        
+        <button class="btn btn-success mb-3" id="addUserBtn">Add User</button>
+        <div id="addUserTable" style="display: none;">
+            <h2>Add User</h2>
+            <form action="/csv/adduser" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="class" class="form-label">Class</label>
+                    <input type="text" class="form-control" id="class" name="class" required>
+                </div>
+                <div class="mb-3">
+                    <label for="premiumStart" class="form-label">Premium Start</label>
+                    <input type="date" class="form-control" id="premiumStart" name="premiumStart">
+                </div>
+                <div class="mb-3">
+                    <label for="premiumEnd" class="form-label">Premium End</label>
+                    <input type="date" class="form-control" id="premiumEnd" name="premiumEnd">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
         <h1 class="mt-5">Upload CSV File</h1>
         <form action="/csv/upload" method="post" enctype="multipart/form-data" class="mb-4"> 
             <div class="input-group">
@@ -62,9 +130,41 @@
             </div>
         </form>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // I'll move this part
+        // Edit button click event listener
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Extract user information from data attributes
+                const userId = this.getAttribute('data-user-id');
+                const username = this.getAttribute('data-username');
+                const email = this.getAttribute('data-email');
+                const userClass = this.getAttribute('data-class');
+                const premiumStart = this.getAttribute('data-premium-start');
+                const premiumEnd = this.getAttribute('data-premium-end');
+
+                // Populate edit form fields
+                document.getElementById('editUsername').value = username;
+                document.getElementById('editEmail').value = email;
+                document.getElementById('editClass').value = userClass;
+                document.getElementById('editPremiumStart').value = premiumStart;
+                document.getElementById('editPremiumEnd').value = premiumEnd;
+
+                // Display the edit form
+                document.getElementById('editUserForm').style.display = 'block';
+            });
+        });
+
+        // Function to select all checkboxes
+        document.getElementById('selectAllCheckbox').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.user-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+
+        // Function to filter user rows based on search input
         document.getElementById('searchInput').addEventListener('input', function() {
             const searchTerm = this.value.trim().toLowerCase();
             const userRows = document.querySelectorAll('.user-row');
@@ -79,14 +179,23 @@
                     }
                 });
 
-                if (found) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+                row.style.display = found ? '' : 'none';
             });
         });
 
+        // Delete button click event listener
+        function confirmDelete(username, userId) {
+            if (confirm(`Are you sure you want to delete ${username}?`)) {
+                // If user confirms, redirect to delete endpoint
+                window.location.href = `/users/${userId}`;
+            }
+        }
+
+        // "Add User" button click event listener
+        document.getElementById('addUserBtn').addEventListener('click', function() {
+            const addUserTable = document.getElementById('addUserTable');
+            addUserTable.style.display = addUserTable.style.display === 'none' ? 'block' : 'none';
+        });
     </script>
 </body>
 </html>
