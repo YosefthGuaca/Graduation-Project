@@ -1,9 +1,9 @@
 import express from "express";
 import prisma from "../client";
-import { User } from "@prisma/client";
+import { UserInput } from "@/config/passport";
 
 const getPage = async (req: express.Request, res: express.Response) => {
-  const user = req.user as User;
+  const user = req.user as UserInput;
   if (!user) {
     return res.status(401).json({ message: "Unauthorized" });
   }
@@ -49,7 +49,7 @@ const createPage = async (req: express.Request, res: express.Response) => {
 };
 
 const updatePage = async (req: express.Request, res: express.Response) => {
-  const user = req.user as User;
+  const user = req.user as UserInput;
   if (!user) {
     return res.status(401).json({ message: "Unauthorized" });
   }
