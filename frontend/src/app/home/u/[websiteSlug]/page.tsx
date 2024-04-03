@@ -1,8 +1,16 @@
-type Props = {};
+type Props = { params: { websiteSlug: string } };
 
 // This is editing the page for index.html.
 const Page = (props: Props) => {
-  return <div id="gjs" />;
+  const { websiteSlug } = props.params;
+
+  return (
+    <>
+      <div id="gjs" />
+      <div id="websiteSlug" data-slug={websiteSlug} />
+      <div id="pageSlug" data-slug="" />
+    </>
+  );
 };
 
 export default Page;

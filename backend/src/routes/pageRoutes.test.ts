@@ -3,7 +3,7 @@ import server from "../index";
 import { seedPage } from "../../../prisma/testData";
 import prisma from "../client";
 
-describe("GET /projects/:id", () => {
+describe("GET websites/:websiteSlug/pages/:pageSlug", () => {
   it("should return a page", async () => {
     const page = await seedPage(prisma, {});
     const response = await request(server).get(`/projects/${page.id}`);
@@ -11,7 +11,7 @@ describe("GET /projects/:id", () => {
   });
 });
 
-describe("PATCH /projects/:id", () => {
+describe("PATCH websites/:websiteSlug/pages/:pageSlug", () => {
   it("should update a page", async () => {
     const page = await seedPage(prisma, {});
     const response = await request(server)

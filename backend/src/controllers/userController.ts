@@ -72,9 +72,6 @@ const logout = (req: express.Request, res: express.Response) => {
 };
 
 const getMyUser = (req: express.Request, res: express.Response) => {
-  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.set("Access-Control-Allow-Credentials", "true");
-
   if (req.isAuthenticated()) {
     return res.status(200).json(req.user);
   } else {
