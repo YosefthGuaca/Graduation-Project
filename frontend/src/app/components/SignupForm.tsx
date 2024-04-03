@@ -13,6 +13,21 @@ const Login = (props: Props) => {
   const [password, setPassword] = React.useState('');
   const router = useRouter();
 
+  React.useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axiosInstance.request({
+          url: 'users/me',
+          method: 'GET',
+        });
+        router.push('/home/websites');
+      } catch (error) {
+        console.log('Not logged in');
+      }
+    };
+    checkAuth();
+  }, [router]);
+
   const submitFunc = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {

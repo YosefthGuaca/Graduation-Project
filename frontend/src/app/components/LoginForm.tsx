@@ -18,7 +18,6 @@ const Login = (props: Props) => {
         const response = await axiosInstance.request({
           url: 'users/me',
           method: 'GET',
-          withCredentials: true,
         });
         router.push('/home/websites');
       } catch (error) {
