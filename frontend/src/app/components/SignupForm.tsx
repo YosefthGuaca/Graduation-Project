@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import axios from '../../axios';
+import axiosInstance from '@/axios';
+import { useRouter } from 'next/navigation';
 
 type Props = {};
 
@@ -10,11 +11,27 @@ const Login = (props: Props) => {
   const [email, setEmail] = React.useState('');
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const router = useRouter();
+
+  React.useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axiosInstance.request({
+          url: 'users/me',
+          method: 'GET',
+        });
+        router.push('/home/websites');
+      } catch (error) {
+        console.log('Not logged in');
+      }
+    };
+    checkAuth();
+  }, [router]);
 
   const submitFunc = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.request({
+      const response = await axiosInstance.request({
         url: 'users/signup',
         method: 'POST',
         data: JSON.stringify({
@@ -23,9 +40,9 @@ const Login = (props: Props) => {
           password,
         }),
       });
-      console.log(response.data);
+      router.push('/login');
     } catch (error) {
-      console.error('Error:', error);
+      alert('Sign up failed');
     }
   };
 

@@ -41,7 +41,7 @@ const signup = async (req: express.Request, res: express.Response) => {
 const login = (
   req: express.Request,
   res: express.Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   passport.authenticate("local", (err: Error, user: Express.User) => {
     if (err) {
@@ -71,4 +71,15 @@ const logout = (req: express.Request, res: express.Response) => {
     .json({ message: "Logged out" });
 };
 
-export { login, logout, signup };
+const getMyUser = (req: express.Request, res: express.Response) => {
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.set("Access-Control-Allow-Credentials", "true");
+
+  if (req.isAuthenticated()) {
+    return res.status(200).json(req.user);
+  } else {
+    return res.status(404).json({ message: "You are logged out" });
+  }
+};
+
+export { login, logout, signup, getMyUser };
