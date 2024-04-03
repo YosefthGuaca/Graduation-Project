@@ -20,12 +20,14 @@ const Websites = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Websites</h1>
-      <ul>
+    <div className="container px-4 my-12">
+      <h1 className="text-4xl font-bold">Your Websites</h1>
+      <ul className="mt-24">
         {websites.map((website) => (
           <li key={website.id}>
-            <a href={`/home/u/${website.slug}`}>{website.title}</a>
+            <a href={`/home/u/${website.slug}`} className="border-2 hover:border-blue-400 rounded-lg p-12 text-center">
+              {website.title}
+            </a>
           </li>
         ))}
       </ul>
