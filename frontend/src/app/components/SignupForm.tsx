@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import axiosInstance from '@/axios';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 type Props = {};
 
@@ -47,9 +47,8 @@ const Login = (props: Props) => {
   };
 
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full flex-col justify-center px-6 py-48 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <Image className="mx-auto" src="/vercel.svg" width={100} height={100} alt="Your Company" />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign up to your account
         </h2>
@@ -66,7 +65,7 @@ const Login = (props: Props) => {
                 name="email"
                 type="email"
                 autoComplete="email"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-4"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -81,7 +80,7 @@ const Login = (props: Props) => {
                 id="username"
                 name="username"
                 type="text"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-4"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -115,6 +114,9 @@ const Login = (props: Props) => {
           </div>
         </form>
       </div>
+      <Link href={'/login'} className="text-right pt-12">
+        Do you have Account? Login
+      </Link>
     </div>
   );
 };
