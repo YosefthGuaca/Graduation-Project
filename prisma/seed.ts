@@ -75,7 +75,7 @@ async function seed() {
           components: [{ tagName: "h1", content: "Hello, this is Top page!" }],
         },
         name: "Top",
-        versionId: 1,
+        versionId: 3,
       },
       {
         slug: "about",
@@ -85,25 +85,7 @@ async function seed() {
           ],
         },
         name: "About",
-        versionId: 1,
-      },
-      {
-        slug: "index",
-        content: {
-          components: [{ tagName: "h1", content: "Hello, this is Top page!" }],
-        },
-        name: "Top",
-        versionId: 2,
-      },
-      {
-        slug: "about",
-        content: {
-          components: [
-            { tagName: "h1", content: "Hello, this is About page!" },
-          ],
-        },
-        name: "About",
-        versionId: 2,
+        versionId: 3,
       },
     ],
   });

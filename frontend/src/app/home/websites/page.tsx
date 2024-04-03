@@ -1,5 +1,5 @@
 import React from 'react';
-import Websites from '@/app/components/websites';
+import Websites from '@/app/components/Websites';
 
 type Props = {};
 

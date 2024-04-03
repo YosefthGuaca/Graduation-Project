@@ -1,5 +1,6 @@
-const projectID = 1;
-const projectEndpoint = `http://localhost:4000/projects/${projectID}`;
+const websiteSlug = document.getElementById('websiteSlug')?.getAttribute('data-slug');
+const pageSlug = document.getElementById('pageSlug')?.getAttribute('data-slug');
+const projectEndpoint = `http://localhost:4000/api/websites/${websiteSlug}/pages/${pageSlug || 'index'}`;
 const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
 myHeaders.append('Accept', 'application/json');
@@ -7,11 +8,17 @@ let projectData = {};
 
 const getProjectData = async () => {
   try {
-    const res = await fetch(projectEndpoint);
+    const res = await fetch(projectEndpoint, {
+      credentials: 'include',
+    });
     const data = await res.json();
+    if (!data) {
+      window.location.href = '/home/websites';
+    }
     projectData = data.content;
     initEditor();
   } catch (error) {
+    window.location.href = '/home/websites';
     console.error(error);
   }
 };
@@ -75,6 +82,7 @@ const initEditor = () => {
           method: 'PATCH',
           body: JSON.stringify(data),
           headers: myHeaders,
+          credentials: 'include',
         });
 
         if (response.ok) {

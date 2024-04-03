@@ -1,12 +1,24 @@
 import express from "express";
 import prisma from "../client";
+import { UserInput } from "@/config/passport";
 
 const getPage = async (req: express.Request, res: express.Response) => {
-  const { id } = req.params;
-  const projects = await prisma.page
-    .findUnique({
+  const user = req.user as UserInput;
+  if (!user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  const { websiteSlug, pageSlug } = req.params;
+  const page = await prisma.page
+    .findFirst({
       where: {
-        id: parseInt(id),
+        slug: pageSlug,
+        version: {
+          status: "Draft",
+          website: {
+            slug: websiteSlug,
+            userId: user.id,
+          },
+        },
       },
       select: {
         content: true,
@@ -16,7 +28,7 @@ const getPage = async (req: express.Request, res: express.Response) => {
       return res.status(500).json(error);
     });
 
-  return res.status(200).json(projects || []);
+  return res.status(200).json(page);
 };
 
 const createPage = async (req: express.Request, res: express.Response) => {
@@ -37,11 +49,23 @@ const createPage = async (req: express.Request, res: express.Response) => {
 };
 
 const updatePage = async (req: express.Request, res: express.Response) => {
+  const user = req.user as UserInput;
+  if (!user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  const { websiteSlug, pageSlug } = req.params;
   const content = req.body;
   const page = await prisma.page
-    .update({
+    .updateMany({
       where: {
-        id: 1,
+        slug: pageSlug,
+        version: {
+          status: "Draft",
+          website: {
+            slug: websiteSlug,
+            userId: user.id,
+          },
+        },
       },
       data: {
         content,

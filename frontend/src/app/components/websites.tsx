@@ -25,7 +25,7 @@ const Websites = () => {
       <ul>
         {websites.map((website) => (
           <li key={website.id}>
-            <a href={`/home/q/${website.slug}/page`}>{website.title}</a>
+            <a href={`/home/u/${website.slug}`}>{website.title}</a>
           </li>
         ))}
       </ul>
