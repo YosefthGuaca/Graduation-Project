@@ -1,6 +1,5 @@
 import React from 'react';
-import Websites from '../components/Websites';
-import Sidebar from '../components/Sidebar';
+import Websites from '../components/websites';
 
 type Props = {};
 
