@@ -32,6 +32,9 @@ const port = 4000;
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: "Hello World!" });
 });
+app.get("/api", (req: Request, res: Response) => {
+  res.status(200).json({ content: "Hello World!" });
+});
 
 app.use("/u", publicRoutes);
 app.use("/api/users", userRoutes);

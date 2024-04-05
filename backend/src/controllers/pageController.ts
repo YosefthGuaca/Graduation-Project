@@ -36,7 +36,6 @@ const createPage = async (req: express.Request, res: express.Response) => {
     .create({
       data: {
         slug: "slug",
-        content: { page: "content" },
         name: "name",
         versionId: 1,
       },
