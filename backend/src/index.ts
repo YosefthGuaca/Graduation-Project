@@ -1,6 +1,5 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import pageRoutes from "./routes/pageRoutes";
 import publicRoutes from "./routes/publicRoutes";
 import userRoutes from "./routes/userRoutes";
 import websiteRoutes from "./routes/websiteRoutes";
@@ -34,7 +33,6 @@ app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: "Hello World!" });
 });
 
-app.use("/api/websites/:websiteSlug/pages", pageRoutes);
 app.use("/u", publicRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/websites", websiteRoutes);
