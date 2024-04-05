@@ -1,14 +1,13 @@
 import React from 'react';
-import SignupForm from '../components/SignupForm';
-import Navbar from '../components/Navbar';
+import Websites from '../components/Websites';
+import Sidebar from '../components/Sidebar';
 
 type Props = {};
 
 const page = (props: Props) => {
   return (
     <>
-      <Navbar />
-      <SignupForm />
+      <Websites />
     </>
   );
 };
