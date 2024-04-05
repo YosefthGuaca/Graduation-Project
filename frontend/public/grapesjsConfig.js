@@ -13,12 +13,12 @@ const getProjectData = async () => {
     });
     const data = await res.json();
     if (!data) {
-      window.location.href = '/home/websites';
+      window.location.href = '/home';
     }
     projectData = data.content;
     initEditor();
   } catch (error) {
-    window.location.href = '/home/websites';
+    window.location.href = '/home';
     console.error(error);
   }
 };
