@@ -43,14 +43,6 @@ const createWebsite = async (req: express.Request, res: express.Response) => {
                   {
                     name: "Top",
                     slug: "index",
-                    content: {
-                      components: [
-                        {
-                          tagName: "h1",
-                          content: "Welcome to the new website!",
-                        },
-                      ],
-                    },
                   },
                 ],
               },
