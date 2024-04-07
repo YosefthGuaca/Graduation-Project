@@ -5,7 +5,7 @@ CREATE TYPE "AdminType" AS ENUM ('Super', 'Editor', 'Reader');
 CREATE TYPE "UserType" AS ENUM ('Admin', 'General');
 
 -- CreateEnum
-CREATE TYPE "VersionStatus" AS ENUM ('Draft', 'Published', 'Archived');
+CREATE TYPE "PageStatus" AS ENUM ('Draft', 'Published', 'Archived');
 
 -- CreateTable
 CREATE TABLE "Admin" (
@@ -24,6 +24,7 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "username" TEXT NOT NULL,
+    "class" TEXT,
     "hashedPassword" TEXT NOT NULL,
     "type" "UserType" NOT NULL DEFAULT 'General',
     "premiumStart" TIMESTAMP(3),
@@ -92,25 +93,16 @@ CREATE TABLE "Website" (
 );
 
 -- CreateTable
-CREATE TABLE "Version" (
-    "id" SERIAL NOT NULL,
-    "status" "VersionStatus" NOT NULL DEFAULT 'Draft',
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "websiteId" INTEGER NOT NULL,
-
-    CONSTRAINT "Version_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Page" (
     "id" SERIAL NOT NULL,
     "slug" TEXT NOT NULL,
+    "status" "PageStatus" NOT NULL DEFAULT 'Draft',
     "content" JSONB,
     "name" TEXT NOT NULL,
+    "publishedAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "versionId" INTEGER NOT NULL,
+    "websiteId" INTEGER NOT NULL,
 
     CONSTRAINT "Page_pkey" PRIMARY KEY ("id")
 );
@@ -148,19 +140,7 @@ CREATE UNIQUE INDEX "Admin_email_key" ON "Admin"("email");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_profileFilename_key" ON "User"("profileFilename");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Asset_filename_key" ON "Asset"("filename");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Website_slug_key" ON "Website"("slug");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Website_faviconFilename_key" ON "Website"("faviconFilename");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Page_slug_versionId_key" ON "Page"("slug", "versionId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "CustomDomain_domain_key" ON "CustomDomain"("domain");
@@ -175,10 +155,7 @@ ALTER TABLE "Asset" ADD CONSTRAINT "Asset_userId_fkey" FOREIGN KEY ("userId") RE
 ALTER TABLE "Website" ADD CONSTRAINT "Website_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Version" ADD CONSTRAINT "Version_websiteId_fkey" FOREIGN KEY ("websiteId") REFERENCES "Website"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Page" ADD CONSTRAINT "Page_versionId_fkey" FOREIGN KEY ("versionId") REFERENCES "Version"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Page" ADD CONSTRAINT "Page_websiteId_fkey" FOREIGN KEY ("websiteId") REFERENCES "Website"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "CustomDomain" ADD CONSTRAINT "CustomDomain_websiteId_fkey" FOREIGN KEY ("websiteId") REFERENCES "Website"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

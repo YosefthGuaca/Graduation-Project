@@ -50,42 +50,19 @@ async function seed() {
     ],
   });
 
-  await prisma.version.createMany({
-    data: [
-      {
-        status: "Archived",
-        websiteId: 1,
-      },
-      {
-        status: "Published",
-        websiteId: 1,
-      },
-      {
-        status: "Draft",
-        websiteId: 1,
-      },
-    ],
-  });
-
   await prisma.page.createMany({
     data: [
       {
         slug: "index",
-        content: {
-          components: [{ tagName: "h1", content: "Hello, this is Top page!" }],
-        },
+        status: "Draft",
         name: "Top",
-        versionId: 3,
+        websiteId: 1,
       },
       {
         slug: "about",
-        content: {
-          components: [
-            { tagName: "h1", content: "Hello, this is About page!" },
-          ],
-        },
+        status: "Draft",
         name: "About",
-        versionId: 3,
+        websiteId: 1,
       },
     ],
   });

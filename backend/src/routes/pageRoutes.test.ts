@@ -1,14 +1,13 @@
 import request from "supertest";
 import server from "../index";
-import { seedPage, seedVersion, seedWebsite } from "../../../prisma/testData";
+import { seedPage, seedWebsite } from "../../../prisma/testData";
 import prisma from "../client";
 
 //  TODO: Fix this test
 describe("GET websites/:websiteSlug/pages/:pageSlug", () => {
   it("should return a page", async () => {
     const website = await seedWebsite(prisma, {});
-    const version = await seedVersion(prisma, { websiteId: website.id });
-    const page = await seedPage(prisma, { versionId: version.id });
+    const page = await seedPage(prisma, { websiteId: website.id });
     const response = await request(server).get(
       `/api/websites/${website.slug}/projects/${page.slug}`
     );
@@ -21,8 +20,7 @@ describe("GET websites/:websiteSlug/pages/:pageSlug", () => {
 describe("PATCH websites/:websiteSlug/pages/:pageSlug", () => {
   it("should update a page", async () => {
     const website = await seedWebsite(prisma, {});
-    const version = await seedVersion(prisma, { websiteId: website.id });
-    const page = await seedPage(prisma, { versionId: version.id });
+    const page = await seedPage(prisma, { websiteId: website.id });
     const response = await request(server)
       .patch(`/api/websites/${website.slug}/projects/${page.slug}`)
       .send({ content: { page: "content" } });

@@ -34,18 +34,12 @@ const createWebsite = async (req: express.Request, res: express.Response) => {
         title,
         slug,
         userId: user.id,
-        versions: {
+        pages: {
           create: [
             {
               status: "Draft",
-              pages: {
-                create: [
-                  {
-                    name: "Top",
-                    slug: "index",
-                  },
-                ],
-              },
+              name: "Top",
+              slug: "index",
             },
           ],
         },
