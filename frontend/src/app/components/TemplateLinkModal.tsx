@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 type Props = { websiteSlug: string; pageSlug: string };
 
-const SelectTemplateModal = (props: Props) => {
+const TemplateLinkModal = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const { websiteSlug, pageSlug } = props;
 
@@ -28,13 +28,6 @@ const SelectTemplateModal = (props: Props) => {
 
   return (
     <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="absolute bottom-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-full w-36 h-36 mt-8"
-      >
-        Create New Website
-      </button>
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
           <Transition.Child
@@ -62,10 +55,10 @@ const SelectTemplateModal = (props: Props) => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                    Select template
+                    Go to template list
                   </Dialog.Title>
                   <a
-                    href={`/home/u/${websiteSlug}/templates/1`}
+                    href={`/home/u/${websiteSlug}/templates`}
                     className="block border-2 hover:border-blue-400 rounded-lg p-12 text-center"
                   >
                     <Image
@@ -75,7 +68,7 @@ const SelectTemplateModal = (props: Props) => {
                       height={67}
                       className="mx-auto mb-4"
                     />
-                    defaultTemplate
+                    <p>Click here to go to the template list</p>
                   </a>
                 </Dialog.Panel>
               </Transition.Child>
@@ -87,4 +80,4 @@ const SelectTemplateModal = (props: Props) => {
   );
 };
 
-export default SelectTemplateModal;
+export default TemplateLinkModal;

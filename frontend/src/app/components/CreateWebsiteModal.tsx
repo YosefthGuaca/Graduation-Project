@@ -21,7 +21,7 @@ const CreateWebsiteModal = () => {
         }),
       });
       setIsOpen(false);
-      window.location.href = `/home/u/${slug}`;
+      window.location.href = `/home/u/${slug}/templates`;
     } catch (error) {
       alert('Failed to create website');
     }
