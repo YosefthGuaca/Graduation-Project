@@ -69,3 +69,36 @@ editor.Storage.add('remote', {
     }
   },
 });
+
+editor.Panels.addButton('options', [
+  {
+    id: 'publish',
+    className: 'fa fa-upload',
+    command: 'publish',
+    attributes: { title: 'Publish' },
+  },
+]);
+
+editor.Commands.add('publish', {
+  run: function (editor, sender) {
+    sender && sender.set('active', 0);
+
+    const html = editor.getHtml().replace(/(\r\n|\n|\r)/gm, '');
+    const css = editor.getCss().replace(/(\r\n|\n|\r)/gm, '');
+
+    fetch(`http://localhost:4000/u/${websiteSlug}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ html: html, css: css }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  },
+});
