@@ -1,8 +1,8 @@
 _Program Project Kickoff_ document has been moved. [docs/kick_off](/docs/kick_off/README.md)
 
-# Ux Show Go
+![Ux Show Go](/docs/logos/UxShowGo.gif)
 
-![Ux Show Go](/docs/logos/rectangle.png)
+# Ux Show Go
 
 ## Set up
 
