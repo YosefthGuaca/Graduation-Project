@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Website } from '@prisma/client';
 import axiosInstance from '@/axios';
-import NewWebsiteModal from './CreateWebsiteModal';
+import CreateWebsiteModal from './CreateWebsiteModal';
 
 const Websites = () => {
   const [websites, setWebsites] = useState<Website[]>([]);
@@ -35,7 +35,7 @@ const Websites = () => {
           </li>
         ))}
       </ul>
-      <NewWebsiteModal />
+      <CreateWebsiteModal />
     </div>
   );
 };

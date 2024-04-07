@@ -84,7 +84,7 @@ editor.Commands.add('publish', {
     sender && sender.set('active', 0);
 
     const html = editor.getHtml().replace(/(\r\n|\n|\r)/gm, '');
-    const css = editor.getCss().replace(/(\r\n|\n|\r)/gm, '');
+    const css = editor.getCss()?.replace(/(\r\n|\n|\r)/gm, '') || '';
 
     try {
       const response = await fetch(`http://localhost:4000/u/${websiteSlug}/p/${pageSlug || 'index'}`, {
