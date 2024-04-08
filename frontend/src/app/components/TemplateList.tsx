@@ -3,13 +3,12 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '@/axios';
 import grapesjs from 'grapesjs';
-import { Template } from '@prisma/client';
 
 type Props = { websiteSlug: string };
 
 const TemplateList = (props: Props) => {
   const [pageContent, setPageContent] = useState({});
-  const [templates, setTemplates] = useState<Partial<Template>[]>([]);
+  const [templates, setTemplates] = useState<{ id: number; name: string }[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState('');
   const { websiteSlug } = props;
 

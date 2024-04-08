@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Website } from '@prisma/client';
 import axiosInstance from '@/axios';
 import CreateWebsiteModal from './CreateWebsiteModal';
 
 const Websites = () => {
-  const [websites, setWebsites] = useState<Website[]>([]);
+  const [websites, setWebsites] = useState<{ id: number; slug: string; title: string }[]>([]);
 
   useEffect(() => {
     async function fetchWebsites() {

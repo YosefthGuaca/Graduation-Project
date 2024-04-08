@@ -15,8 +15,6 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
         working-directory: ./frontend
-      - name: Prisma Generate
-        run: npx prisma generate
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         working-directory: ./frontend
