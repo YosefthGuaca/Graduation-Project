@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import expressSession from "express-session";
 
-type UserInput = {
+export type UserInput = {
   id: number;
   email: string;
   hashedPassword: string;

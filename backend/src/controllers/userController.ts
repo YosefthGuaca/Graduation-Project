@@ -71,4 +71,12 @@ const logout = (req: express.Request, res: express.Response) => {
     .json({ message: "Logged out" });
 };
 
-export { login, logout, signup };
+const getMyUser = (req: express.Request, res: express.Response) => {
+  if (req.isAuthenticated()) {
+    return res.status(200).json(req.user);
+  } else {
+    return res.status(404).json({ message: "You are logged out" });
+  }
+};
+
+export { login, logout, signup, getMyUser };

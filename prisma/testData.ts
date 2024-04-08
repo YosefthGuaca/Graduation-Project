@@ -5,7 +5,6 @@ import {
   Website,
   UserLoginLog,
   Asset,
-  Version,
   Page,
   Template,
   CustomDomain,
@@ -122,28 +121,11 @@ async function seedWebsite(prisma: PrismaClient, props: Partial<Website>) {
   return website;
 }
 
-async function seedVersion(prisma: PrismaClient, props: Partial<Version>) {
+async function seedPage(prisma: PrismaClient, props: Partial<Page>) {
   let websiteId = props.websiteId;
   if (!websiteId) {
     const website = await seedWebsite(prisma, {});
     websiteId = website.id;
-  }
-
-  const version = await prisma.version.create({
-    data: {
-      status: props.status || "Draft",
-      websiteId,
-    },
-  });
-
-  return version;
-}
-
-async function seedPage(prisma: PrismaClient, props: Partial<Page>) {
-  let versionId = props.versionId;
-  if (!versionId) {
-    const version = await seedVersion(prisma, {});
-    versionId = version.id;
   }
 
   const page = await prisma.page.create({
@@ -153,7 +135,7 @@ async function seedPage(prisma: PrismaClient, props: Partial<Page>) {
         components: [{ tagName: "h1", content: "Hello, this is Top page!" }],
       },
       name: props.name || "Top",
-      versionId,
+      websiteId,
     },
   });
 
@@ -205,7 +187,6 @@ export {
   seedUserLoginLog,
   seedAsset,
   seedWebsite,
-  seedVersion,
   seedPage,
   seedTemplage,
   seedCustomDomain,

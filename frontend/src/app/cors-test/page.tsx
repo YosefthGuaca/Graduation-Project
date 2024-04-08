@@ -1,11 +1,11 @@
 'use client';
 import React from 'react';
-import axios from 'axios';
+import axiosInstance from '@/axios';
 
 const CorsTestPage: React.FC = () => {
   const handleRequest = async (method: string) => {
     try {
-      const response = await axios.request({
+      const response = await axiosInstance.request({
         url: 'cors-test',
         method,
         // data: { message: `${method} request sent` },
