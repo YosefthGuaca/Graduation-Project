@@ -1,0 +1,41 @@
+<section id="content">
+  <nav>
+    <i class="bx bx-menu"></i>
+    <a href="#" class="nav-link">Categories</a>
+    <form action="#">
+      <div class="form-input">
+        <input
+          type="text"
+          id="searchInput"
+          class="form-control"
+          placeholder="Search..."
+        />
+        <button type="submit" class="search-btn">
+          <i class="bx bx-search"></i>
+        </button>
+      </div>
+    </form>
+    <input type="checkbox" id="switch-mode" hidden />
+    <label for="switch-mode" class="switch-mode"></label>
+  </nav>
+</section>
+
+<script>
+const switchMode = document.getElementById('switch-mode');
+
+switchMode.addEventListener('change', function () {
+	if(this.checked) {
+		document.body.classList.add('dark');
+	} else {
+		document.body.classList.remove('dark');
+	}
+})
+const menuBar = document.querySelector('#content nav .bx.bx-menu');
+const sidebar = document.getElementById('sidebar');
+
+menuBar.addEventListener('click', function () {
+	sidebar.classList.toggle('hide');
+})
+
+
+</script>
