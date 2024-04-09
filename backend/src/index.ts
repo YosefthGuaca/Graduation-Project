@@ -12,7 +12,7 @@ dotenv.config();
 const app: Express = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
   optionsSuccessStatus: 200,
   credentials: true,
   methods: "GET, POST, DELETE, PATCH, PUT, OPTIONS",
@@ -27,7 +27,7 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
-const port = 4000;
+const port = process.env.BACKEND_PORT || 4000;
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: "Hello World!" });

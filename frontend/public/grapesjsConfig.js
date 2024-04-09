@@ -1,6 +1,7 @@
 const websiteSlug = document.getElementById('websiteSlug')?.getAttribute('data-slug');
 const pageSlug = document.getElementById('pageSlug')?.getAttribute('data-slug');
-const projectEndpoint = `http://localhost:4000/api/websites/${websiteSlug}/pages/${pageSlug || 'index'}`;
+const projectEndpoint = document.getElementById('projectEndpoint')?.getAttribute('data-endpoint');
+const publicEndpoint = document.getElementById('publicEndpoint')?.getAttribute('data-endpoint');
 const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
 myHeaders.append('Accept', 'application/json');
@@ -87,7 +88,7 @@ editor.Commands.add('publish', {
     const css = editor.getCss()?.replace(/(\r\n|\n|\r)/gm, '') || '';
 
     try {
-      const response = await fetch(`http://localhost:4000/u/${websiteSlug}/p/${pageSlug || 'index'}`, {
+      const response = await fetch(publicEndpoint, {
         method: 'POST',
         headers: myHeaders,
         credentials: 'include',
