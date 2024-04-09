@@ -1,7 +1,8 @@
 const websiteSlug = document.getElementById('websiteSlug')?.getAttribute('data-slug');
 const pageSlug = document.getElementById('pageSlug')?.getAttribute('data-slug');
-const projectEndpoint = document.getElementById('projectEndpoint')?.getAttribute('data-endpoint');
-const publicEndpoint = document.getElementById('publicEndpoint')?.getAttribute('data-endpoint');
+const backendUrl = document.getElementById('backendUrl')?.getAttribute('data-url');
+const projectEndpoint = `${backendUrl}/api/websites/${websiteSlug}/pages/${pageSlug || 'index'}`;
+const publicEndpoint = `${backendUrl}/u/${websiteSlug}/p/${pageSlug || 'index'}`;
 const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
 myHeaders.append('Accept', 'application/json');
@@ -42,10 +43,12 @@ editor.Storage.add('remote', {
         return data.content || {};
       } else {
         console.error(`Error loading data: ${response.statusText}`);
+        location.href = '/login';
         return null;
       }
     } catch (error) {
       console.error('Error loading data:', error);
+      location.href = '/login';
       return null;
     }
   },
@@ -87,15 +90,43 @@ editor.Commands.add('publish', {
     const html = editor.getHtml().replace(/(\r\n|\n|\r)/gm, '');
     const css = editor.getCss()?.replace(/(\r\n|\n|\r)/gm, '') || '';
 
-    try {
-      const response = await fetch(publicEndpoint, {
-        method: 'POST',
-        headers: myHeaders,
-        credentials: 'include',
-        body: JSON.stringify({ html: html, css: css }),
-      });
-    } catch (error) {
-      console.error('Error:', error);
+    const result = await Swal.fire({
+      title: 'Confirm!',
+      text: 'Are you sure you want to publish?',
+      icon: 'question',
+      showCancelButton: true,
+    });
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch(publicEndpoint, {
+          method: 'POST',
+          headers: myHeaders,
+          credentials: 'include',
+          body: JSON.stringify({ html: html, css: css }),
+        });
+        if (response.ok) {
+          open(pageSlug ? `${backendUrl}/u/${websiteSlug}/p/index` : `${backendUrl}/u/${websiteSlug}`);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
+  },
+});
+
+editor.Commands.add('canvas-clear', {
+  run(editor) {
+    Swal.fire({
+      title: 'Warning',
+      text: 'Are you sure you want to delete all components?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        editor.DomComponents.clear();
+        Swal.fire('Deleted!', 'Your component has been deleted.', 'success');
+      }
+    });
   },
 });
