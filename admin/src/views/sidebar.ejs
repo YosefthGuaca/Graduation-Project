@@ -1,6 +1,6 @@
 <section id="sidebar">
   <a href="#" class="brand">
-    <span class="text">UX SHOW GO</span>
+    <span class="text">UX SHOW GO <br> Admin</span>
   </a>
   <ul class="side-menu top">
     <li class="active">
@@ -36,10 +36,9 @@
       </a>
     </li>
     <li>
-      <a href="#" class="logout">
-        <i class='bx bxs-log-out-circle' ></i>
-        <span class="text">Logout</span>
-      </a>
+        <form action="/admin/logout" method="post">
+            <button type="submit" class="btn btn-primary mb-4"> <i class='bx bxs-log-out-circle' ></i>Logout</button>
+        </form>
     </li>
   </ul>
 </section>
