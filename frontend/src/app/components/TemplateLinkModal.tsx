@@ -15,7 +15,6 @@ const TemplateLinkModal = (props: Props) => {
     const func = async () => {
       try {
         const response = await axiosInstance.get(`websites/${websiteSlug}/pages/${pageSlug}`);
-        console.log(response.data);
         if (!response.data.content) {
           setIsOpen(true);
         }

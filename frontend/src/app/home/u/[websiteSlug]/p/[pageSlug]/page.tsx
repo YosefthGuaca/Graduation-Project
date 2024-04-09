@@ -21,6 +21,7 @@ const Page = (props: Props) => {
       <Script strategy="beforeInteractive" src="https://unpkg.com/grapesjs-tooltip" />
       <Script strategy="beforeInteractive" src="https://unpkg.com/grapesjs-tui-image-editor" />
       <Script strategy="beforeInteractive" src="https://unpkg.com/grapesjs-style-bg" />
+      <Script id="SweetAlert" src="https://cdn.jsdelivr.net/npm/sweetalert2@11" />
       <div id="gjs" />
       <div id="websiteSlug" data-slug={websiteSlug} />
       <div id="pageSlug" data-slug={pageSlug} />
