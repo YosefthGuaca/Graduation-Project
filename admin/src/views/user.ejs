@@ -1,4 +1,6 @@
+
 <%- include('partials/header.ejs')  %>
+<%- include('dashboard.ejs') %>
      <!-- Table to display user data -->
         <table class=" table-sm">
          <thead>
@@ -36,10 +38,10 @@
                                      data-class="<%= user.class %>"
                                      data-premium-start="<%= user.premiumStart ? user.premiumStart.toISOString().split('T')[0] : '' %>"
                                      data-premium-end="<%= user.premiumEnd ? user.premiumEnd.toISOString().split('T')[0] : '' %>">
-                                 Edit
+                                 Edit <i class='bx bx-edit'></i>
                              </button>
-                             <button class="btn btn-danger btn-sm delete-btn" onclick="confirmDelete('<%= user.username %>', '<%= user.id %>')">Delete</button>
-                             <button class="btn btn-warning btn-sm alert-btn" data-user-id="<%= user.id %>">Send Invitation</button>
+                             <button class="btn btn-danger btn-sm delete-btn" onclick="confirmDelete('<%= user.username %>', '<%= user.id %>')">Delete <i class='bx bx-trash'></i></button>
+                             <button class="btn btn-warning btn-sm alert-btn" data-user-id="<%= user.id %>">E-mail <i class='bx bx-envelope' ></i></button>
                          </td>
                      </tr>
                  <% }) %>
@@ -82,7 +84,7 @@
     </div>
         
      
-     <button class="btn btn-success mb-3" id="addUserBtn">Add User</button>
+     <button class="btn btn-success mb-3" id="addUserBtn">Add User <i class='bx bx-user-plus'></i></button>
      <div id="addUserTable" style="display: none;">
          <h2>Add User</h2>
          <form action="/csv/adduser" method="post">
@@ -113,7 +115,7 @@
      <form action="/csv/upload" method="post" enctype="multipart/form-data" class="mb-4"> 
          <div class="input-group">
              <input type="file" name="csvfile" accept=".csv" class="form-control" required>
-             <button type="submit" class="btn btn-success">Upload</button>
+             <button type="submit" class="btn btn-success">Upload <i class='bx bxs-cloud-download' ></i></button>
          </div>
      </form>
  </div>
