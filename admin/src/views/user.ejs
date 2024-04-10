@@ -3,11 +3,18 @@
 <%- include('dashboard.ejs') %>
      <!-- Table to display user data -->
      <section id="content">
-        <table class=" table-sm">
+    <div class="table-data">
+        <div class="order">
+            <div class="head">
+                <h3>All Users</h3>
+                <!-- <i class='bx bx-search' ></i>
+                <i class='bx bx-filter' ></i> -->
+            </div>
+            <table>
          <thead>
+            <thead>
              <tr>
                  <th scope="col">
-                     <!-- Checkbox for all -->
                      <input type="checkbox" id="selectAllCheckbox">
                  </th>
                  <th scope="col">Username</th>
