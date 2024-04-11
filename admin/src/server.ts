@@ -6,6 +6,8 @@ import { session } from "./config/passport";
 import { PrismaClient } from "@prisma/client";
 import csvRoutes from "./routes/csvRoutes";
 import  userRoutes from "./routes/userRoutes"
+// import nodemailer from 'nodemailer';
+
 
 const prisma = new PrismaClient();
 const app = express();
@@ -23,7 +25,7 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+  
 app.get("/", (req: express.Request, res: express.Response) => {
   if (req.isAuthenticated()) {
     const users = async () => {
@@ -65,7 +67,24 @@ app.get("/users/:userId", async (req, res) => {
 
 app.use("/admin", adminRouter);
 
+// const transporter=nodemailer.createTransport({
+//   host:"smtp.gmail.com",
+//   port: 465,
+//   secure:true,
+//   auth:{
+//     user:'uxshowgo@gmail.com',
+//     pass:'yulo zzvw wfpf lkfp'
+//   },
+//   });
+  
+//   transporter.sendMail({
+//     to:'geo.ayalamung@gmail.com',
+//     subject: 'test email',
+//     html:'<h1>Hello Geo!<br> This is a test</h1> ',
+//   }).then(()=>{
+//     console.log('Email has been sent')
+//   }).catch(err =>console.log(err)
+//   );
 
 const server = app.listen(PORT, () => {});
-
 export default server;
