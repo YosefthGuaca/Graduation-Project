@@ -115,7 +115,7 @@ const uploadUsersFromCsv = [
                 });
               } else {
                 console.warn(
-                  `User with email ${record.email} already exists. Skipping.`,
+                  `User with email ${record.email} already exists. `,
                 );
               }
             }

@@ -1,0 +1,50 @@
+<%- include('partials/header.ejs')  %>
+<nav class="sidebar">
+  <a href="#" class="brand">
+    <img src="/admin/public/UxShowGoDark.png" alt="Logo UX SHOW GO" />
+    <span class="text">UX SHOW GO <br> Admin</span>
+</a>
+
+    <ul class="side-menu top">
+        <li class="active">
+            <a href="#">
+                <i class='bx bxs-dashboard' ></i>
+                <span class="text">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-doughnut-chart' ></i>
+                <span class="text">Something</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-message-dots' ></i>
+                <span class="text">Message</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://ciccc-wmad.slack.com/archives/C05268B22EP">
+                <i class='bx bxs-group' ></i>
+                <span class="text">Slack</span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="side-menu">
+        <li>
+            <a href="#">
+                <i class='bx bxs-cog' ></i>
+                <span class="text">Settings</span>
+            </a>
+        </li>
+        <li>
+            <form action="/admin/logout" method="post">
+                <button type="submit" class="btn btn-primary mb-4"> 
+                    <i class='bx bxs-log-out-circle' ></i>Logout
+                </button>
+            </form>
+        </li>
+    </ul>
+</nav>
