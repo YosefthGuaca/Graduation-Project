@@ -7,9 +7,8 @@
         <div class="order">
             <div class="head">
                 <h3>All Users</h3>
-                <!-- <i class='bx bx-search' ></i>
-                <i class='bx bx-filter' ></i> -->
             </div>
+            
             <table>
          <thead>
             <thead>
@@ -118,13 +117,14 @@
              <button type="submit" class="btn btn-primary">Submit</button>
          </form>
      </div>
-     <h1 class="mt-5">Upload CSV File</h1>
+     <div  class="csv">
      <form action="/csv/upload" method="post" enctype="multipart/form-data" class="mb-4"> 
          <div class="input-group">
              <input type="file" name="csvfile" accept=".csv" class="form-control" required>
              <button type="submit" class="btn btn-success">Upload <i class='bx bxs-cloud-download' ></i></button>
          </div>
      </form>
+    </div>
  </div>
 </section>
 
