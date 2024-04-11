@@ -85,31 +85,21 @@ model Website {
   updatedAt          DateTime       @updatedAt
   user               User           @relation(fields: [userId], references: [id])
   userId             Int
-  versions           Version[]
+  pages              Page[]
   customDomains      CustomDomain[]
 }
 
-model Version {
-  id        Int           @id @default(autoincrement())
-  status    VersionStatus @default(Draft)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
-  website   Website       @relation(fields: [websiteId], references: [id])
-  websiteId Int
-  pages     Page[]
-}
-
 model Page {
-  id        Int      @id @default(autoincrement())
-  slug      String
-  content   Json?
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  version   Version  @relation(fields: [versionId], references: [id])
-  versionId Int
-
-  @@unique([slug, versionId])
+  id          Int        @id @default(autoincrement())
+  slug        String
+  status      PageStatus @default(Draft)
+  content     Json?
+  name        String
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  website     Website    @relation(fields: [websiteId], references: [id])
+  websiteId   Int
 }
 
 model Template {
@@ -145,7 +135,7 @@ enum UserType {
   General
 }
 
-enum VersionStatus {
+enum PageStatus {
   Draft
   Published
   Archived

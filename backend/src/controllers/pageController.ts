@@ -12,12 +12,10 @@ const getPage = async (req: express.Request, res: express.Response) => {
     .findFirst({
       where: {
         slug: pageSlug,
-        version: {
-          status: "Draft",
-          website: {
-            slug: websiteSlug,
-            userId: user.id,
-          },
+        status: "Draft",
+        website: {
+          slug: websiteSlug,
+          userId: user.id,
         },
       },
       select: {
@@ -36,9 +34,8 @@ const createPage = async (req: express.Request, res: express.Response) => {
     .create({
       data: {
         slug: "slug",
-        content: { page: "content" },
         name: "name",
-        versionId: 1,
+        websiteId: 1,
       },
     })
     .catch((error: Error) => {
@@ -59,12 +56,10 @@ const updatePage = async (req: express.Request, res: express.Response) => {
     .updateMany({
       where: {
         slug: pageSlug,
-        version: {
-          status: "Draft",
-          website: {
-            slug: websiteSlug,
-            userId: user.id,
-          },
+        status: "Draft",
+        website: {
+          slug: websiteSlug,
+          userId: user.id,
         },
       },
       data: {
