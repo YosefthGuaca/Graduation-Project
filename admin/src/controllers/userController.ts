@@ -53,7 +53,7 @@ const updateUser = async (req: express.Request, res: express.Response) => {
       return res.status(500).json({ error: error.message });
     });
 
-  res.status(200).redirect("/");
+  res.status(200).json();
 };
 
 export default { deleteUser, updateUser };

@@ -6,7 +6,6 @@ import { session } from "./config/passport";
 import { PrismaClient } from "@prisma/client";
 import csvRoutes from "./routes/csvRoutes";
 import userRoutes from "./routes/userRoutes";
-import methodOverride from "method-override";
 // import nodemailer from 'nodemailer';
 
 const prisma = new PrismaClient();
@@ -19,7 +18,6 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieparser());
-app.use(methodOverride("_method"));
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
