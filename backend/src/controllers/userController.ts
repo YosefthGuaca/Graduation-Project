@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import express, { NextFunction } from "express";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import passport from "passport";
 
 const prisma = new PrismaClient();
@@ -43,12 +43,22 @@ const login = (
   res: express.Response,
   next: NextFunction
 ) => {
-  passport.authenticate("local", (err: Error, user: Express.User) => {
+  passport.authenticate("local", async (err: Error, user: User) => {
     if (err) {
       return next(err);
     }
     if (!user) {
       return res.status(401).json({ message: "Authentication failed" });
+    }
+    if (!user.firstLoginInAt) {
+      await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          firstLoginInAt: new Date(),
+        },
+      });
     }
     req.logIn(user, (err) => {
       if (err) {
