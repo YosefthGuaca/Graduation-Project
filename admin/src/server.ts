@@ -5,9 +5,9 @@ import passport from "passport";
 import { session } from "./config/passport";
 import { PrismaClient } from "@prisma/client";
 import csvRoutes from "./routes/csvRoutes";
-import  userRoutes from "./routes/userRoutes"
+import userRoutes from "./routes/userRoutes";
+import methodOverride from "method-override";
 // import nodemailer from 'nodemailer';
-
 
 const prisma = new PrismaClient();
 const app = express();
@@ -19,13 +19,11 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieparser());
-app.use("/csv", csvRoutes);
-app.use("/users", userRoutes);
+app.use(methodOverride("_method"));
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
-  
 app.get("/", (req: express.Request, res: express.Response) => {
   if (req.isAuthenticated()) {
     const users = async () => {
@@ -46,25 +44,25 @@ app.get("/signup", (req: express.Request, res: express.Response) => {
 
 app.get("/login", (req: express.Request, res: express.Response) => {
   res.render("./login.ejs");
-
 });
 
 app.get("/users/:userId", async (req, res) => {
   const userId = parseInt(req.params.userId);
   try {
-   
     await prisma.user.delete({
       where: {
         id: userId,
       },
     });
-    res.status(204).send(); 
+    res.status(204).send();
   } catch (error) {
     console.error("Error deleting user:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
+app.use("/users", userRoutes);
+app.use("/csv", csvRoutes);
 app.use("/admin", adminRouter);
 
 // const transporter=nodemailer.createTransport({
@@ -76,7 +74,7 @@ app.use("/admin", adminRouter);
 //     pass:'yulo zzvw wfpf lkfp'
 //   },
 //   });
-  
+
 //   transporter.sendMail({
 //     to:'geo.ayalamung@gmail.com',
 //     subject: 'test email',

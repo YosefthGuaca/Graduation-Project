@@ -64,7 +64,7 @@
      <div class="edit-form">
      <div id="editUserForm" style="display: none;">
          <h2>Edit User</h2>
-         <form id="editUserForm" action="/users/${userId}" method="put">
+         <form id="editUserForm" action="/users/edit?_method=PUT" method="post">
              <div class="mb-3">
                  <label for="editUsername" class="form-label">Username</label>
                  <input type="text" class="form-control" id="editUsername" name="username" required>
