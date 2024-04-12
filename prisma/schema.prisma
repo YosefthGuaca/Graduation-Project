@@ -37,6 +37,7 @@ model User {
   profileSize     Int?
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
+  firstLoginInAt  DateTime?
   userLoginLogs   UserLoginLog[]
   assets          Asset[]
   websites        Website[]
