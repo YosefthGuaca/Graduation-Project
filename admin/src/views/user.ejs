@@ -182,10 +182,22 @@
 
      // Delete button click event listener
      function confirmDelete(username, userId) {
-         if (confirm(`Are you sure you want to delete ${username}?`)) {
-             // If user confirms, redirect to delete endpoint
-             window.location.href = `/users/${userId}`;
-         }
+        if (confirm(`Are you sure you want to delete ${username}?`)) {
+            fetch(`/users/${userId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    window.location.reload();
+                } 
+                else if (response.status === 202){
+                    alert('User has already logged in and cannot be deleted');
+                }
+                else {
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        }
      }
 
      // "Add User" button click event listener

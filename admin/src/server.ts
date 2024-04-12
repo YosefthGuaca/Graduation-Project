@@ -44,21 +44,6 @@ app.get("/login", (req: express.Request, res: express.Response) => {
   res.render("./login.ejs");
 });
 
-app.get("/users/:userId", async (req, res) => {
-  const userId = parseInt(req.params.userId);
-  try {
-    await prisma.user.delete({
-      where: {
-        id: userId,
-      },
-    });
-    res.status(204).send();
-  } catch (error) {
-    console.error("Error deleting user:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
 app.use("/users", userRoutes);
 app.use("/csv", csvRoutes);
 app.use("/admin", adminRouter);
