@@ -1,7 +1,14 @@
 import bcrypt from "bcrypt";
 import express, { NextFunction } from "express";
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import passport from "passport";
+
+type User = {
+  id: number;
+  email: string;
+  username: string;
+  firstLoginInAt: Date;
+};
 
 const prisma = new PrismaClient();
 
