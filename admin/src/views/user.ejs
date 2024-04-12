@@ -64,7 +64,7 @@
      <div class="edit-form">
      <div id="editUserForm" style="display: none;">
          <h2>Edit User</h2>
-         <form id="editUserForm" action="/users/${userId}" method="put">
+         <form id="editUserForm" action="/users/edit" method="post">
              <div class="mb-3">
                  <label for="editUsername" class="form-label">Username</label>
                  <input type="text" class="form-control" id="editUsername" name="username" required>
@@ -192,6 +192,38 @@
      document.getElementById('addUserBtn').addEventListener('click', function() {
          const addUserTable = document.getElementById('addUserTable');
          addUserTable.style.display = addUserTable.style.display === 'none' ? 'block' : 'none';
+     });
+
+     // "Edit User information
+     document.getElementById('editUserForm').addEventListener('submit', function(e) {
+         e.preventDefault();
+
+         const username = document.getElementById('editUsername').value;
+         const email = document.getElementById('editEmail').value;
+         const userClass = document.getElementById('editClass').value;
+         const premiumStart = document.getElementById('editPremiumStart').value;
+         const premiumEnd = document.getElementById('editPremiumEnd').value;
+
+         fetch(`/users/edit`, {
+             method: 'PUT',
+             headers: {
+                 'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({
+                 username,
+                 email,
+                 class: userClass,
+                 premiumStart,
+                 premiumEnd
+             })
+         })
+        .then(response => {
+            if (response.status === 200) {
+                window.location.reload();
+            } else {
+                alert('An error occurred. Please try again.');
+            }
+        });
      });
  </script>
 </html>
