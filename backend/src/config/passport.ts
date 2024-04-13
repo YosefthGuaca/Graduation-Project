@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import {
@@ -9,6 +10,8 @@ import { Strategy as GithubStrategy } from "passport-github2";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import expressSession from "express-session";
+
+dotenv.config();
 
 export type UserInput = {
   id: number;
