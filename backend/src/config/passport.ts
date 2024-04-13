@@ -1,4 +1,3 @@
-import dotenv from "dotenv";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import {
@@ -10,8 +9,6 @@ import { Strategy as GithubStrategy } from "passport-github2";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import expressSession from "express-session";
-
-dotenv.config();
 
 export type UserInput = {
   id: number;
@@ -60,8 +57,8 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      clientID: process.env.GOOGLE_CLIENT_ID || "dummy",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "dummy",
       callbackURL: "http://localhost:4000/auth/google/callback",
       scope: ["profile", "email"],
     },
@@ -110,8 +107,8 @@ passport.use(
 passport.use(
   new GithubStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID || "",
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+      clientID: process.env.GITHUB_CLIENT_ID || "dummy",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || "dummy",
       callbackURL: "http://localhost:4000/auth/github/callback",
     },
     async (
