@@ -6,6 +6,7 @@ type Props = { params: { websiteSlug: string; pageSlug: string } };
 // This is editing the page for *.html.
 const Page = (props: Props) => {
   const { websiteSlug, pageSlug } = props.params;
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
 
   return (
     <>
@@ -25,6 +26,7 @@ const Page = (props: Props) => {
       <div id="gjs" />
       <div id="websiteSlug" data-slug={websiteSlug} />
       <div id="pageSlug" data-slug={pageSlug} />
+      <div id="backendUrl" data-url={backendUrl} />
       <Script id="GrapsJS" src="/grapesjsConfig.js" />
     </>
   );

@@ -6,11 +6,10 @@ import { session } from "./config/passport";
 import { PrismaClient } from "@prisma/client";
 import csvRoutes from "./routes/csvRoutes";
 import userRoutes from "./routes/userRoutes";
-// import nodemailer from 'nodemailer';
 
 const prisma = new PrismaClient();
 const app = express();
-const PORT = 8000;
+const PORT = process.env.ADMIN_PORT || 8000;
 
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
@@ -47,25 +46,6 @@ app.get("/login", (req: express.Request, res: express.Response) => {
 app.use("/users", userRoutes);
 app.use("/csv", csvRoutes);
 app.use("/admin", adminRouter);
-
-// const transporter=nodemailer.createTransport({
-//   host:"smtp.gmail.com",
-//   port: 465,
-//   secure:true,
-//   auth:{
-//     user:'uxshowgo@gmail.com',
-//     pass:'yulo zzvw wfpf lkfp'
-//   },
-//   });
-
-//   transporter.sendMail({
-//     to:'geo.ayalamung@gmail.com',
-//     subject: 'test email',
-//     html:'<h1>Hello Geo!<br> This is a test</h1> ',
-//   }).then(()=>{
-//     console.log('Email has been sent')
-//   }).catch(err =>console.log(err)
-//   );
 
 const server = app.listen(PORT, () => {});
 export default server;

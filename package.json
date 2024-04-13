@@ -26,7 +26,6 @@
     "@mermaid-js/mermaid-cli": "^10.8.0",
     "@types/nodemailer": "^6.4.14",
     "concurrently": "^8.2.2",
-    "husky": "^9.0.11",
     "prisma": "^5.10.2",
     "prisma-erd-generator": "^1.11.2"
   }

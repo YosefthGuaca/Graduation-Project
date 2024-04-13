@@ -32,7 +32,6 @@ const Navbar = (props: Props) => {
   const logout = async () => {
     try {
       await axiosInstance.post('/users/logout');
-      console.log('Logged out');
       window.location.reload();
     } catch (error) {
       console.error('Error logging out:', error);

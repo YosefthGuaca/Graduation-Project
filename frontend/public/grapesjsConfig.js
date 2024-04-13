@@ -1,6 +1,8 @@
 const websiteSlug = document.getElementById('websiteSlug')?.getAttribute('data-slug');
 const pageSlug = document.getElementById('pageSlug')?.getAttribute('data-slug');
-const projectEndpoint = `http://localhost:4000/api/websites/${websiteSlug}/pages/${pageSlug || 'index'}`;
+const backendUrl = document.getElementById('backendUrl')?.getAttribute('data-url');
+const projectEndpoint = `${backendUrl}/api/websites/${websiteSlug}/pages/${pageSlug || 'index'}`;
+const publicEndpoint = `${backendUrl}/u/${websiteSlug}/p/${pageSlug || 'index'}`;
 const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
 myHeaders.append('Accept', 'application/json');
@@ -96,18 +98,14 @@ editor.Commands.add('publish', {
     });
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:4000/u/${websiteSlug}/p/${pageSlug || 'index'}`, {
+        const response = await fetch(publicEndpoint, {
           method: 'POST',
           headers: myHeaders,
           credentials: 'include',
           body: JSON.stringify({ html: html, css: css }),
         });
         if (response.ok) {
-          if (pageSlug && pageSlug !== 'index') {
-            open(`http://localhost:4000/u/${websiteSlug}/p/${pageSlug}`);
-          } else {
-            open(`http://localhost:4000/u/${websiteSlug}`);
-          }
+          open(pageSlug ? `${backendUrl}/u/${websiteSlug}/p/index` : `${backendUrl}/u/${websiteSlug}`);
         }
       } catch (error) {
         console.error('Error:', error);

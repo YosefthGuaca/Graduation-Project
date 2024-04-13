@@ -3,13 +3,12 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '@/axios';
 import grapesjs from 'grapesjs';
-import { Template } from '@prisma/client';
 
 type Props = { websiteSlug: string };
 
 const TemplateList = (props: Props) => {
   const [pageContent, setPageContent] = useState({});
-  const [templates, setTemplates] = useState<Partial<Template>[]>([]);
+  const [templates, setTemplates] = useState<{ id: number; name: string }[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState('');
   const { websiteSlug } = props;
 
@@ -45,8 +44,7 @@ const TemplateList = (props: Props) => {
   }, []);
 
   const clickTemplate = async (id: number) => {
-    console.log('clicked id: ', id);
-    const response = await fetch('http://localhost:3000/defaultTemplate.html');
+    const response = await fetch('/defaultTemplate.html');
     const template = await response.text();
     setSelectedTemplate(template);
   };
@@ -58,15 +56,11 @@ const TemplateList = (props: Props) => {
     });
     editor.setComponents(selectedTemplate);
     const projectData = editor.getProjectData();
-    console.log('projectData: ', projectData);
 
     try {
-      const response = await axiosInstance.patch(
-        `http://localhost:4000/api/websites/${websiteSlug}/pages/index`,
-        projectData,
-      );
+      const response = await axiosInstance.patch(`/websites/${websiteSlug}/pages/index`, projectData);
       if (response.status === 200) {
-        window.location.href = `http://localhost:3000/home/u/${websiteSlug}`;
+        window.location.href = `/home/u/${websiteSlug}`;
       }
     } catch (error) {
       console.error('Error:', error);
