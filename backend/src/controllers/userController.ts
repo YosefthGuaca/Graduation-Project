@@ -7,7 +7,7 @@ type User = {
   id: number;
   email: string;
   username: string;
-  firstLoginInAt: Date;
+  firstLoginAt: Date;
 };
 
 const prisma = new PrismaClient();
@@ -57,13 +57,13 @@ const login = (
     if (!user) {
       return res.status(401).json({ message: "Authentication failed" });
     }
-    if (!user.firstLoginInAt) {
+    if (!user.firstLoginAt) {
       await prisma.user.update({
         where: {
           id: user.id,
         },
         data: {
-          firstLoginInAt: new Date(),
+          firstLoginAt: new Date(),
         },
       });
     }

@@ -25,13 +25,13 @@ const deleteUser = async (req: express.Request, res: express.Response) => {
         id: parseInt(userId),
       },
       select: {
-        firstLoginInAt: true,
+        firstLoginAt: true,
       },
     });
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
-    if (user.firstLoginInAt) {
+    if (user.firstLoginAt) {
       return res
         .status(202)
         .send("User has already logged in and cannot be deleted");
