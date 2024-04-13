@@ -20,28 +20,30 @@ model Admin {
 }
 
 model User {
-  id              Int            @id @default(autoincrement())
-  email           String         @unique
-  username        String
-  class           String?
-  hashedPassword  String
-  type            UserType       @default(General)
-  premiumStart    DateTime?
-  premiumEnd      DateTime?
-  provider        String?
-  providerId      String?
-  providerData    Json?
-  profileFilename String?
-  profilePath     String?
-  profileMimetype String?
-  profileSize     Int?
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  firstLoginInAt  DateTime?
-  userLoginLogs   UserLoginLog[]
-  assets          Asset[]
-  websites        Website[]
-  customDomains   CustomDomain[]
+  id                Int            @id @default(autoincrement())
+  email             String         @unique
+  username          String
+  class             String?
+  hashedPassword    String
+  temporaryPassword String?
+  emailSentAt       DateTime?
+  type              UserType       @default(General)
+  premiumStart      DateTime?
+  premiumEnd        DateTime?
+  provider          String?
+  providerId        String?
+  providerData      Json?
+  profileFilename   String?
+  profilePath       String?
+  profileMimetype   String?
+  profileSize       Int?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  firstLoginInAt    DateTime?
+  userLoginLogs     UserLoginLog[]
+  assets            Asset[]
+  websites          Website[]
+  customDomains     CustomDomain[]
 }
 
 model UserLoginLog {

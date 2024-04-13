@@ -21,6 +21,7 @@
                  <th scope="col">Class</th>
                  <th scope="col">Premium Start</th>
                  <th scope="col">Premium End</th>
+                 <th scope="col">Email Sent</th>
                  <th scope="col">Actions</th> 
              </tr>
          </thead>
@@ -37,6 +38,7 @@
                          <td><%= user.class %></td>
                          <td><%= user.premiumStart ? user.premiumStart.toDateString() : 'N/A' %></td>
                          <td><%= user.premiumEnd ? user.premiumEnd.toDateString() : 'N/A' %></td>
+                         <td><%= user.emailSentAt ? user.emailSentAt.toDateString() : 'N/A' %></td>
                          <td>
                              <button class="btn btn-primary btn-sm edit-btn" 
                                      data-user-id="<%= user.id %>"
@@ -48,7 +50,7 @@
                                  Edit <i class='bx bx-edit'></i>
                              </button>
                              <button class="btn btn-danger btn-sm delete-btn" onclick="confirmDelete('<%= user.username %>', '<%= user.id %>')">Delete <i class='bx bx-trash'></i></button>
-                             <button class="btn btn-warning btn-sm alert-btn" data-user-id="<%= user.id %>">email <i class='bx bx-envelope' ></i></button>
+                             <form action="/users/<%= user.id %>/email" method="post"><button type="submit" class="btn btn-warning btn-sm alert-btn">email <i class='bx bx-envelope' ></i></button></form>
                          </td>
                      </tr>
                  <% }) %>
