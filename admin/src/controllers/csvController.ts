@@ -27,11 +27,19 @@ const router = express.Router();
 // Controller to add a user individually
 router.post("/adduser", async (req, res) => {
   // Extract user data from request body
-  const { username, email, class: userClass, premiumStart, premiumEnd } = req.body;
+  const {
+    username,
+    email,
+    class: userClass,
+    premiumStart,
+    premiumEnd,
+  } = req.body;
 
   // Validate user data
   if (!username || !email) {
-    return res.status(400).json({ error: "Username and email are required fields." });
+    return res
+      .status(400)
+      .json({ error: "Username and email are required fields." });
   }
 
   try {
@@ -62,7 +70,9 @@ router.post("/adduser", async (req, res) => {
     res.status(201).json(newUser);
   } catch (error) {
     console.error("Error creating user:", error);
-    res.status(500).json({ error: "An error occurred while creating the user." });
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the user." });
   }
 });
 
@@ -94,7 +104,8 @@ const uploadUsersFromCsv = [
 
           try {
             for (const record of records) {
-              const hashedPassword = await bcrypt.hash("defaultPassword", 10);
+              const temporaryPassword = generateString(10);
+              const hashedPassword = await bcrypt.hash(temporaryPassword, 10);
 
               // Check if the user with the given email already exists
               const existingUser = await prisma.user.findUnique({
@@ -108,18 +119,19 @@ const uploadUsersFromCsv = [
                     email: record.email,
                     username: record.username,
                     class: record.class,
-                    hashedPassword: hashedPassword,
+                    hashedPassword,
+                    temporaryPassword,
                     premiumStart: new Date(record.premiumStart),
                     premiumEnd: new Date(record.premiumEnd),
                   },
                 });
               } else {
                 console.warn(
-                  `User with email ${record.email} already exists. Skipping.`,
+                  `User with email ${record.email} already exists. `
                 );
               }
             }
-            res.send("Users have been successfully uploaded and saved.");
+            res.redirect("/");
           } catch (error) {
             console.error("Error saving to database:", error);
             res.status(500).send("Error saving records to the database");
@@ -127,11 +139,22 @@ const uploadUsersFromCsv = [
             // Delete the uploaded file
             fs.unlinkSync(filePath);
           }
-        },
+        }
       );
     });
   },
 ];
+
+const characters =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+const generateString = (length: number) => {
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+};
 
 // Export both controllers
 export { router as csvController, uploadUsersFromCsv };

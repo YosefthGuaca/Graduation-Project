@@ -26,6 +26,8 @@ CREATE TABLE "User" (
     "username" TEXT NOT NULL,
     "class" TEXT,
     "hashedPassword" TEXT NOT NULL,
+    "temporaryPassword" TEXT,
+    "emailSentAt" TIMESTAMP(3),
     "type" "UserType" NOT NULL DEFAULT 'General',
     "premiumStart" TIMESTAMP(3),
     "premiumEnd" TIMESTAMP(3),
@@ -38,6 +40,7 @@ CREATE TABLE "User" (
     "profileSize" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "firstLoginAt" TIMESTAMP(3),
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );

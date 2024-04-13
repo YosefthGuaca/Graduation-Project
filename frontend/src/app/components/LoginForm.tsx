@@ -85,18 +85,18 @@ const Login = (props: Props) => {
           </form>
           <div className="p-5">
             <div className="grid grid-cols-2 gap-1">
-              <button
-                type="button"
+              <a
+                href="http://localhost:4000/auth/google"
                 className="transition duration-200 border border-gray-200 text-gray-500 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-normal text-center inline-block"
               >
                 Google
-              </button>
-              <button
-                type="button"
+              </a>
+              <a
+                href="http://localhost:4000/auth/github"
                 className="transition duration-200 border border-gray-200 text-gray-500 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-normal text-center inline-block"
               >
                 Github
-              </button>
+              </a>
             </div>
           </div>
         </div>

@@ -48,16 +48,4 @@ const logout = (req: express.Request, res: express.Response) => {
   return res.status(200).clearCookie("connect.sid").redirect("/");
 };
 
-const getUsers = async (req: express.Request, res: express.Response) => {
-  if (!req.isAuthenticated()) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-
-  const users = await prisma.user.findMany().catch((error: Error) => {
-    return res.status(500).json(error);
-  });
-
-  return res.status(200).json(users);
-};
-
-export { login, logout, signup, getUsers };
+export { login, logout, signup };

@@ -1,0 +1,325 @@
+<%- include('dashboard.ejs') %>
+<div class="container-index">
+  <section id="content">
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3>All Users</h3>
+        </div>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">
+                  <input type="checkbox" id="selectAllCheckbox" />
+                </th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Class</th>
+                <th scope="col">Premium Start</th>
+                <th scope="col">Premium End</th>
+                <th scope="col">First Login</th>
+                <th scope="col">Email Sent</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="userList">
+                <% if (users && users.length > 0) { %>
+                    <% users.forEach(user => { %>
+                        <tr class="user-row">
+                            <td>
+                                <!-- Checkbox individual -->
+                                <input type="checkbox" class="user-checkbox">
+                            </td>
+                            <td><%= user.username %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.class %></td>
+                            <td><%= user.premiumStart ? user.premiumStart.toDateString() : 'N/A' %></td>
+                            <td><%= user.premiumEnd ? user.premiumEnd.toDateString() : 'N/A' %></td>
+                            <td><%= user.firstLoginAt ? user.firstLoginAt.toDateString() : 'N/A' %></td>
+                            <td><%= user.emailSentAt ? user.emailSentAt.toDateString() : 'N/A' %></td>
+                            <td>
+                                <button class="btn btn-primary btn-sm edit-btn" 
+                                        data-user-id="<%= user.id %>"
+                                        data-username="<%= user.username %>"
+                                        data-email="<%= user.email %>"
+                                        data-class="<%= user.class %>"
+                                        data-premium-start="<%= user.premiumStart ? user.premiumStart.toISOString().split('T')[0] : '' %>"
+                                        data-premium-end="<%= user.premiumEnd ? user.premiumEnd.toISOString().split('T')[0] : '' %>">
+                                    Edit <i class='bx bx-edit'></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm delete-btn" onclick="confirmDelete('<%= user.username %>', '<%= user.id %>')">Delete <i class='bx bx-trash'></i></button>
+                                <form action="/users/<%= user.id %>/email" method="post"><button type="submit" class="btn btn-warning btn-sm alert-btn">email <i class='bx bx-envelope' ></i></button></form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="7">No users found.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- edit user -->
+        <div class="edit-form">
+          <div id="editUserForm" style="display: none">
+            <h2>Edit User</h2>
+            <form id="editUserForm" action="/users/edit" method="post">
+              <div class="mb-3">
+                <label for="editUsername" class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editUsername"
+                  name="username"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editEmail" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="editEmail"
+                  name="email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editClass" class="form-label">Class</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editClass"
+                  name="class"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editPremiumStart" class="form-label"
+                  >Premium Start</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="editPremiumStart"
+                  name="premiumStart"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editPremiumEnd" class="form-label"
+                  >Premium End</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="editPremiumEnd"
+                  name="premiumEnd"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+
+        <button class="btn btn-success mb-3" id="addUserBtn">
+          Add User <i class="bx bx-user-plus"></i>
+        </button>
+        <div id="addUserTable" style="display: none">
+          <h2>Add User</h2>
+          <form action="/csv/adduser" method="post">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                name="username"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="class" class="form-label">Class</label>
+              <input
+                type="text"
+                class="form-control"
+                id="class"
+                name="class"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="premiumStart" class="form-label">Premium Start</label>
+              <input
+                type="date"
+                class="form-control"
+                id="premiumStart"
+                name="premiumStart"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="premiumEnd" class="form-label">Premium End</label>
+              <input
+                type="date"
+                class="form-control"
+                id="premiumEnd"
+                name="premiumEnd"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="csv">
+          <form
+            action="/csv/upload"
+            method="post"
+            enctype="multipart/form-data"
+            class="mb-4"
+          >
+            <div class="input-group">
+              <input
+                type="file"
+                name="csvfile"
+                accept=".csv"
+                class="form-control"
+                required
+              />
+              <button type="submit" class="btn btn-success">
+                Upload <i class="bx bxs-cloud-download"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Edit button click event listener
+    document.querySelectorAll(".edit-btn").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        // Extract user information from data attributes
+        const userId = this.getAttribute("data-user-id");
+        const username = this.getAttribute("data-username");
+        const email = this.getAttribute("data-email");
+        const userClass = this.getAttribute("data-class");
+        const premiumStart = this.getAttribute("data-premium-start");
+        const premiumEnd = this.getAttribute("data-premium-end");
+
+        // Populate edit form fields
+        document.getElementById("editUsername").value = username;
+        document.getElementById("editEmail").value = email;
+        document.getElementById("editClass").value = userClass;
+        document.getElementById("editPremiumStart").value = premiumStart;
+        document.getElementById("editPremiumEnd").value = premiumEnd;
+
+        // Display the edit form
+        document.getElementById("editUserForm").style.display = "block";
+      });
+    });
+
+    // Function to select all checkboxes
+    document
+      .getElementById("selectAllCheckbox")
+      .addEventListener("change", function () {
+        const checkboxes = document.querySelectorAll(".user-checkbox");
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = this.checked;
+        });
+      });
+
+    // Function to filter user rows based on search input
+    document
+      .getElementById("searchInput")
+      .addEventListener("input", function () {
+        const searchTerm = this.value.trim().toLowerCase();
+        const userRows = document.querySelectorAll(".user-row");
+
+        userRows.forEach((row) => {
+          const cells = row.querySelectorAll("td");
+          let found = false;
+
+          cells.forEach((cell) => {
+            if (cell.textContent.trim().toLowerCase().includes(searchTerm)) {
+              found = true;
+            }
+          });
+
+          row.style.display = found ? "" : "none";
+        });
+      });
+
+    // Delete button click event listener
+    function confirmDelete(username, userId) {
+      if (confirm(`Are you sure you want to delete ${username}?`)) {
+        fetch(`/users/${userId}`, {
+          method: "DELETE",
+        }).then((response) => {
+          if (response.status === 200) {
+            window.location.reload();
+          } else if (response.status === 202) {
+            alert("User has already logged in and cannot be deleted");
+          } else {
+            alert("An error occurred. Please try again.");
+          }
+        });
+      }
+    }
+
+    // "Add User" button click event listener
+    document
+      .getElementById("addUserBtn")
+      .addEventListener("click", function () {
+        const addUserTable = document.getElementById("addUserTable");
+        addUserTable.style.display =
+          addUserTable.style.display === "none" ? "block" : "none";
+      });
+
+    // "Edit User information
+    document
+      .getElementById("editUserForm")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById("editUsername").value;
+        const email = document.getElementById("editEmail").value;
+        const userClass = document.getElementById("editClass").value;
+        const premiumStart = document.getElementById("editPremiumStart").value;
+        const premiumEnd = document.getElementById("editPremiumEnd").value;
+
+        fetch(`/users/edit`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            email,
+            class: userClass,
+            premiumStart,
+            premiumEnd,
+          }),
+        }).then((response) => {
+          if (response.status === 200) {
+            window.location.reload();
+          } else {
+            alert("An error occurred. Please try again.");
+          }
+        });
+      });
+  </script>
+</div>

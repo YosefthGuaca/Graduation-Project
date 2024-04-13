@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import publicRoutes from "./routes/publicRoutes";
 import userRoutes from "./routes/userRoutes";
 import websiteRoutes from "./routes/websiteRoutes";
+import authRoutes from "./routes/authRoutes";
 import cors from "cors";
 import cookieparser from "cookie-parser";
 import passport from "passport";
@@ -39,6 +40,7 @@ app.get("/api", (req: Request, res: Response) => {
 app.use("/u", publicRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/websites", websiteRoutes);
+app.use("/auth", authRoutes);
 
 const server = app.listen(port, () => {});
 export default server;
