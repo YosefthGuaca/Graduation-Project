@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '@/axios';
 import grapesjs from 'grapesjs';
+import Image from 'next/image';
 
 type Props = { websiteSlug: string };
 
@@ -37,16 +38,25 @@ const TemplateList = (props: Props) => {
       try {
         // const response = await axiosInstance.get('templates');
         // setTemplates(response.data);
-        setTemplates([{ id: 1, name: 'Default Template' }]);
+        setTemplates([
+          { id: 1, name: 'Default Template' },
+          { id: 2, name: 'New Template' },
+        ]);
       } catch (error) {}
     };
     func();
   }, []);
 
   const clickTemplate = async (id: number) => {
-    const response = await fetch('/defaultTemplate.html');
-    const template = await response.text();
-    setSelectedTemplate(template);
+    if (id === 1) {
+      const response = await fetch('/defaultTemplate.html');
+      const template = await response.text();
+      setSelectedTemplate(template);
+    } else if (id === 2) {
+      const response = await fetch('/newTemplate.html');
+      const template = await response.text();
+      setSelectedTemplate(template);
+    }
   };
 
   const updateTemplate = async () => {
@@ -91,8 +101,13 @@ const TemplateList = (props: Props) => {
       {selectedTemplate === '' ? (
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3">
           {templates.map((template) => (
-            <div className="border-2 p-48" key={template.id} onClick={() => clickTemplate(template.id || 0)}>
+            <div className="border-2" key={template.id} onClick={() => clickTemplate(template.id || 0)}>
               <h2>{template.name}</h2>
+              {template.id === 1 ? (
+                <Image src="/defaultTemplate.png" alt="default template" width={480} height={480} />
+              ) : (
+                <Image src="/newTemplateThumnail.png" alt="new template" width={480} height={480} />
+              )}
             </div>
           ))}
         </div>
