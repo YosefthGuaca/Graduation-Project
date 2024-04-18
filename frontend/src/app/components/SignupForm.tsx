@@ -12,6 +12,7 @@ const Login = (props: Props) => {
   const [email, setEmail] = React.useState('');
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [passwordValid, setPasswordValid] = React.useState(true);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -31,6 +32,9 @@ const Login = (props: Props) => {
 
   const submitFunc = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!passwordValid) {
+      return;
+    }
     try {
       const response = await axiosInstance.request({
         url: 'users/signup',
@@ -70,12 +74,21 @@ const Login = (props: Props) => {
               onChange={(e) => setUsername(e.target.value)}
             />
             <label className="font-semibold text-sm text-gray-600 pb-1 block">Password</label>
+            {!passwordValid && (
+              <p className="text-red-500 text-sm">
+                Password must be at least 8 characters and contain both letters and numbers.
+              </p>
+            )}
             <input
               name="password"
               type="password"
               className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+                setPasswordValid(passwordRegex.test(e.target.value));
+              }}
             />
             <button
               type="submit"
