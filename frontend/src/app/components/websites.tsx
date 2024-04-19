@@ -24,9 +24,9 @@ const Websites = () => {
     <div>
       <NavbarAccount />
     <div className="container px-4 my-12 mx-auto">
-      <h1 className="text-7xl font-mono">Manage portfolio's</h1>
+      <h1 className="text-7xl font-mono">Manage portfolios</h1>
       <br></br>
-      <h4 className="text-2xl font-mono">Manage all the portfolios in your account</h4>
+      <h4 className="text-2xl font-mono">Manage all your Websites in your account</h4>
       <ul className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {websites.map((website) => (
       <li key={website.id} className="bg-white border border-gray-200 hover:shadow-lg rounded-lg p-6 text-center transition duration-300 ease-in-out">
