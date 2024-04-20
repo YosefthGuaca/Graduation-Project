@@ -10,7 +10,7 @@ li {
   flex-direction: column;
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
-  background-color: rgb(231, 231, 237);
+  background-color: rgb(255, 255, 255);
 }
 
 .navbar {
@@ -41,7 +41,7 @@ li {
   left: 0;
   height: 100%;
   width: 260px;
-  background-color: #252a41;
+  background-color: #000000;
   padding-top: 20px;
   overflow-y: auto;
   z-index: 1000;
@@ -80,13 +80,13 @@ li {
 }
 
 .side-menu li:hover {
-  background-color: #1f2235;
+  background-color: #f07939;
 }
 
 .side-menu a {
   display: flex;
   align-items: center;
-  color: #cfd3e0;
+  color: #fafafa;
   text-decoration: none;
 }
 
@@ -100,7 +100,7 @@ li {
 }
 
 .side-menu li.active {
-  background-color: #1f2235;
+  background-color: #70727e;
 }
 
 .side-menu .btn-logout {
@@ -111,17 +111,13 @@ li {
 
 .side-menu .btn-logout button {
   width: 80%;
-  background-color: #ff4d4d;
+  background-color: #726e6e;
   border: none;
   color: #fff;
   padding: 8px 10px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-}
-
-.side-menu .btn-logout button:hover {
-  background-color: #ff3333;
 }
 
 .main-content {
@@ -143,7 +139,7 @@ th, td {
 
 th {
   background-color: #f2f2f2;
-  color: #333;
+  color: #000000;
 }
 
 tr:hover {
@@ -158,7 +154,7 @@ input[type="checkbox"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #2C3E50; 
+  background-color: #f17633; 
   padding: 10px 20px;
   color: #ffffff;
 }
@@ -175,15 +171,6 @@ input[type="checkbox"] {
   position: relative;
   flex-grow: 2; 
   margin: 0 15px;
-}
-
-.form-control {
-  width: 100%;
-  border: 2px solid #34495E; 
-  background-color: #2C3E50; 
-  border-radius: 20px; 
-  color: #ECF0F1; 
-  padding: 8px 45px 8px 20px; 
 }
 
 .search-btn {
