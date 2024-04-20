@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.gjs-one-bg {
+  background-color: #f0f0f0 !important;
+}
+
+.gjs-two-color {
+  color: #333 !important;
+}
+
+.gjs-four-color {
+  color: #f97316 !important;
+}
+
+.gjs-four-color-h:hover {
+  color: #f97316 !important;
+}
