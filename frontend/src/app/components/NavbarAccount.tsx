@@ -1,8 +1,24 @@
+'use client'
 import React from 'react';
+import axiosInstance from '@/axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
+
 
 type NavItemProps = {
   label: string;
   link: string;
+};
+
+const logout = async () => {
+  try {
+    await axiosInstance.post('/users/logout');
+    window.location.reload();
+  } catch (error) {
+    console.error('Error logging out:', error);
+  }
 };
 
 const NavItem: React.FC<NavItemProps> = ({ label, link }) => (
@@ -25,11 +41,16 @@ const NavbarAccount: React.FC = () => {
               <div className="flex space-x-6">  
                 <NavItem label="Home" link="/" />
                 <NavItem label="About" link="/about" />
-                <NavItem label="Services" link="/services" />
-                <NavItem label="Contact" link="/contact" />
+                <NavItem label="Account" link="/UserAccount" />
               </div>
             </div>
           </div>
+          <button
+            onClick={() => logout()}
+            className="flex justify-center items-center text-white rounded-full text-sm font-medium hover:bg-orange-500 transition-colors duration-300"
+            style={{ width: '90px', height: '90px', padding: '28px' }}> <FontAwesomeIcon icon={faSignOutAlt} /> 
+            LOGOUT
+          </button>
         </div>
       </div>
     </nav>

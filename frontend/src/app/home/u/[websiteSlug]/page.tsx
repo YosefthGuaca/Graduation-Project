@@ -1,6 +1,7 @@
 import Script from 'next/script';
 import 'grapesjs/dist/css/grapes.min.css';
 import TemplateLinkModal from '@/app/components/TemplateLinkModal';
+import NavbarAccount from '@/app/components/NavbarAccount';
 
 type Props = { params: { websiteSlug: string } };
 
@@ -11,6 +12,7 @@ const Page = (props: Props) => {
 
   return (
     <>
+      <NavbarAccount/>
       <Script strategy="beforeInteractive" src="https://unpkg.com/grapesjs" />
       <Script strategy="beforeInteractive" src="https://unpkg.com/grapesjs-preset-webpage@1.0.2" />
       <Script strategy="beforeInteractive" src="https://unpkg.com/grapesjs-blocks-basic@1.0.1" />
