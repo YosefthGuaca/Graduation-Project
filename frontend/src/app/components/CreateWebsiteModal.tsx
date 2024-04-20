@@ -29,13 +29,12 @@ const CreateWebsiteModal = () => {
 
   return (
     <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="absolute bottom-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-full w-36 h-36 mt-8"
-      >
-        Create New Website
-      </button>
-
+<button
+  onClick={() => setIsOpen(true)}
+  className="btn-animate absolute bottom-4 right-4 bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:ring-orange-300 active:bg-orange-700 text-white font-bold text-lg tracking-wider shadow-lg px-6 py-3 rounded-full w-44 h-44 mt-8 transition duration-300 ease-in-out transform hover:scale-110 focus:outline-none"
+>
+  Create New Website
+</button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
           <Transition.Child
