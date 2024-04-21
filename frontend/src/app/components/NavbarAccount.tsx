@@ -3,13 +3,11 @@ import React from 'react';
 import axiosInstance from '@/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-
-
 
 type NavItemProps = {
   label: string;
   link: string;
+  openInNewTab?: boolean; // New prop to specify whether to open link in a new tab
 };
 
 const logout = async () => {
@@ -21,11 +19,14 @@ const logout = async () => {
   }
 };
 
-const NavItem: React.FC<NavItemProps> = ({ label, link }) => (
-  <a href={link} className="flex justify-center items-center text-white px-3 py-3 rounded-full text-sm font-medium hover:bg-orange-500 transition-colors duration-300" style={{ width: '90px', height: '90px' }}>
-    {label}
-  </a>
-);
+const NavItem: React.FC<NavItemProps> = ({ label, link, openInNewTab = false }) => {
+  const target = openInNewTab ? '_blank' : '_self'; // Determine target based on prop
+  return (
+    <a href={link} target={target} rel="noopener noreferrer" className="flex justify-center items-center text-white px-3 py-3 rounded-full text-sm font-medium hover:bg-orange-500 transition-colors duration-300" style={{ width: '90px', height: '90px' }}>
+      {label}
+    </a>
+  );
+};
 
 const NavbarAccount: React.FC = () => {
   return (
@@ -40,8 +41,8 @@ const NavbarAccount: React.FC = () => {
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-6">  
                 <NavItem label="Home" link="/" />
-                <NavItem label="About" link="/about" />
-                <NavItem label="Account" link="/UserAccount" />
+                <NavItem label="Inspiration" link="https://dribbble.com/shots/popular" openInNewTab /> {/* Pass openInNewTab prop */}
+                <NavItem label="Account" link="account" />
               </div>
             </div>
           </div>
