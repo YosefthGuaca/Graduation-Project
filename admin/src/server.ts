@@ -23,11 +23,11 @@ app.use(passport.session());
 
 app.get("/", (req: express.Request, res: express.Response) => {
   if (req.isAuthenticated()) {
-    // Asynchronously fetch users and their count
+   
     prisma.user.findMany()
       .then(users => {
-        const userCount = users.length; // Get the count of users
-        return res.render("./index.ejs", { users, userCount }); // Pass both users and their count to the template
+        const userCount = users.length; 
+        return res.render("./index.ejs", { users, userCount }); 
       })
       .catch((error: Error) => {
         console.error("Failed to fetch users:", error);
