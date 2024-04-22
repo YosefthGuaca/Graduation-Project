@@ -23,24 +23,19 @@ app.use(passport.session());
 
 app.get("/", (req: express.Request, res: express.Response) => {
   if (req.isAuthenticated()) {
-    const users = async () => {
-      const users = await prisma.user.findMany().catch((error: Error) => {
-        return res.status(500).json(error);
+    // Asynchronously fetch users and their count
+    prisma.user.findMany()
+      .then(users => {
+        const userCount = users.length; // Get the count of users
+        return res.render("./index.ejs", { users, userCount }); // Pass both users and their count to the template
+      })
+      .catch((error: Error) => {
+        console.error("Failed to fetch users:", error);
+        return res.status(500).json({ message: "Error fetching users from database", error });
       });
-      return res.render("./index.ejs", { users });
-    };
-    users();
   } else {
     return res.render("./login.ejs");
   }
-});
-
-app.get("/signup", (req: express.Request, res: express.Response) => {
-  res.render("./signup.ejs");
-});
-
-app.get("/login", (req: express.Request, res: express.Response) => {
-  res.render("./login.ejs");
 });
 
 app.use("/users", userRoutes);
