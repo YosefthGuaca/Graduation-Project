@@ -7,6 +7,14 @@ import { PrismaClient } from "@prisma/client";
 import csvRoutes from "./routes/csvRoutes";
 import userRoutes from "./routes/userRoutes";
 
+
+interface User {
+  id: number;
+  email: string;
+  username: string;
+}
+
+
 const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.ADMIN_PORT || 8000;
@@ -23,18 +31,17 @@ app.use(passport.session());
 
 app.get("/", (req: express.Request, res: express.Response) => {
   if (req.isAuthenticated()) {
-   
-    prisma.user.findMany()
-      .then(users => {
-        const userCount = users.length; 
-        return res.render("./index.ejs", { users, userCount }); 
+      prisma.user.findMany()
+      .then((users: User[]) => {  // Now using the User interface
+          const userCount = users.length;
+          res.render("./index.ejs", { users, userCount });
       })
       .catch((error: Error) => {
-        console.error("Failed to fetch users:", error);
-        return res.status(500).json({ message: "Error fetching users from database", error });
+          console.error("Failed to fetch users:", error);
+          res.status(500).json({ message: "Error fetching users from database", error });
       });
   } else {
-    return res.render("./login.ejs");
+      res.render("./login.ejs");
   }
 });
 
