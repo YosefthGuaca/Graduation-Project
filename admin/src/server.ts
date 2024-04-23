@@ -6,15 +6,11 @@ import { session } from "./config/passport";
 import { PrismaClient } from "@prisma/client";
 import csvRoutes from "./routes/csvRoutes";
 import userRoutes from "./routes/userRoutes";
-
-
 interface User {
   id: number;
   email: string;
   username: string;
 }
-
-
 const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.ADMIN_PORT || 8000;
@@ -32,7 +28,7 @@ app.use(passport.session());
 app.get("/", (req: express.Request, res: express.Response) => {
   if (req.isAuthenticated()) {
       prisma.user.findMany()
-      .then((users: User[]) => {  // Now using the User interface
+      .then((users: User[]) => {  
           const userCount = users.length;
           res.render("./index.ejs", { users, userCount });
       })

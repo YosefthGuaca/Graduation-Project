@@ -31,14 +31,19 @@
               </a>
               
         </li>
-    </ul>
 
-    <ul class="side-menu">
         <li>
             <a href="#">
                 <i class='bx bxs-cog' ></i>
                 <span class="text">Settings</span>
             </a>
+        </li>
+        <li>
+            <a href="#" id="calendar-toggle" class="btn">
+                <i class='bx bx-calendar'></i>
+                <span class="text">Calendar</span>
+            </a>
+            <div id="calendar-container" class="calendar-sidebar" style="display:none;"></div> 
         </li>
         <li>
             <form action="/admin/logout" method="post">
@@ -47,5 +52,24 @@
                 </button>
             </form>
         </li>
-    </ul>
 </nav>
+
+<!-- Calendar Script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script>
+$(document).ready(function() {
+    
+    $("#calendar-container").datepicker({
+        showButtonPanel: true
+    });
+
+  
+    $('#calendar-toggle').click(function(e) {
+        e.preventDefault();
+        $("#calendar-container").toggle(); 
+    });
+});
+</script>
