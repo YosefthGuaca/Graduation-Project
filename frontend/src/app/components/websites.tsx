@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '@/axios';
 import CreateWebsiteModal from './CreateWebsiteModal';
@@ -17,16 +16,36 @@ const Websites = () => {
         console.error('Error fetching websites:', error);
       }
     }
+
     fetchWebsites();
+
+    // Cargando el script de Voiceflow
+    const script = document.createElement('script');
+    script.src = "https://cdn.voiceflow.com/widget/bundle.mjs";
+    script.type = "text/javascript";
+    script.onload = function() {
+      window.voiceflow.chat.load({
+        verify: { projectID: '6627456d92e9f95beaa21cef' },
+        url: 'https://general-runtime.voiceflow.com',
+        versionID: 'production'
+      });
+    };
+
+    document.body.appendChild(script);
+
+    // Limpieza para evitar la carga múltiple del script al salir del componente
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   return (
     <div>
       <NavbarAccount />
-      <div className="container px-4 my-12 mx-auto">
-        <h1 className="text-7xl font-mono">Manage portfolios</h1>
+      <div className="container px-6 my-12 mx-auto">
+        <h1 className="text-7xl font-bold">Manage portfolios <img src="UX SHOW GO 4.png" alt="Portfolio Image" className="inline-block align-middle h-12 w-auto ml-3"/></h1>
         <br></br>
-        <h4 className="text-2xl font-mono">Manage all your Websites in your account</h4>
+        <h4 className="text-2xl font-bold">This are your last portfolio pages.</h4>
         <ul className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {websites.map((website) => (
             <li
@@ -55,4 +74,5 @@ const Websites = () => {
     </div>
   );
 };
+
 export default Websites;

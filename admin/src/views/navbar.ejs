@@ -1,25 +1,32 @@
+<%- include('partials/header.ejs') %>
+
+<body>
 <% 
     let today = new Date();
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    let currentDate = today.toLocaleDateString("en-US", options); // 
+    let currentDate = today.toLocaleDateString("en-US", options); 
 %>
-<section id="navbar-search">
-  <a href="#" class="nav-link">Something here</a>
+    <section id="navbar-search">
+     
+        <div class="date-display"><%= currentDate %></div>
+        <form action="#">
+            <div class="form-input">
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="form-control"
+                    placeholder="Search..."
+                />
+                <button type="submit" class="search-btn">
+                    <i class="bx bx-search"></i>
+                </button>
+            </div>
+        </form>
+        <input type="checkbox" id="switch-mode" hidden />
+        <label for="switch-mode" class="switch-mode"></label>
+    </section>
 
-  <div class="date-display"><%= currentDate %></div>
-  <form action="#">
-    <div class="form-input">
-      <input
-        type="text"
-        id="searchInput"
-        class="form-control"
-        placeholder="Search..."
-      />
-      <button type="submit" class="search-btn">
-        <i class="bx bx-search"></i>
-      </button>
-    </div>
-  </form>
-  <input type="checkbox" id="switch-mode" hidden />
-  <label for="switch-mode" class="switch-mode"></label>
-</section>
+
+
+</body>
+</html>

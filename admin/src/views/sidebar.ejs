@@ -14,31 +14,36 @@
         </li>
         <li>
             <a href="#">
-                <i class='bx bxs-doughnut-chart' ></i>
-                <span class="text">Something</span>
+                <i class='bx bxs-credit-card'></i>
+                <span class="text">Payment</span>
             </a>
         </li>
         <li>
             <a href="#">
-                <i class='bx bxs-message-dots' ></i>
-                <span class="text">Message</span>
+                <i class='bx bx-star' ></i>
+                <span class="text">Premium</span>
             </a>
         </li>
         <li>
             <a href="https://ciccc-wmad.slack.com/archives/C05268B22EP" target="_blank" rel="noopener noreferrer">
-                <i class='bx bxs-group'></i>
+                <i class='bx bxl-slack' ></i>
                 <span class="text">Slack</span>
               </a>
               
         </li>
-    </ul>
 
-    <ul class="side-menu">
         <li>
             <a href="#">
                 <i class='bx bxs-cog' ></i>
                 <span class="text">Settings</span>
             </a>
+        </li>
+        <li>
+            <a href="#" id="calendar-toggle" class="btn">
+                <i class='bx bx-calendar'></i>
+                <span class="text">Calendar</span>
+            </a>
+            <div id="calendar-container" class="calendar-sidebar" style="display:none;"></div> 
         </li>
         <li>
             <form action="/admin/logout" method="post">
@@ -47,5 +52,36 @@
                 </button>
             </form>
         </li>
-    </ul>
 </nav>
+
+<!-- Calendar Script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+          window.voiceflow.chat.load({
+            verify: { projectID: '6627456d92e9f95beaa21cef' },
+            url: 'https://general-runtime.voiceflow.com',
+            versionID: 'production'
+          });
+        }
+        v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
+<script>
+$(document).ready(function() {
+    
+    $("#calendar-container").datepicker({
+        showButtonPanel: true
+    });
+
+  
+    $('#calendar-toggle').click(function(e) {
+        e.preventDefault();
+        $("#calendar-container").toggle(); 
+    });
+});
+</script>

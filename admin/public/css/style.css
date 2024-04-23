@@ -187,3 +187,45 @@ input[type="checkbox"] {
 .search-btn .bx {
   font-size: 24px;
 }
+
+/* calendar */
+.sidebar .ui-datepicker {
+  font-size: 0.7rem;
+  width: auto; 
+}
+
+
+.sidebar .ui-datepicker .ui-datepicker-header {
+  padding: 2px 5px; 
+  font-size: 0.8rem; 
+}
+.sidebar .ui-datepicker .ui-datepicker-prev,
+.sidebar .ui-datepicker .ui-datepicker-next {
+  width: 20px; 
+  height: 20px; 
+  top: 5px; 
+}
+
+
+.sidebar .ui-datepicker table {
+  width: 100%; 
+}
+
+.sidebar .ui-datepicker td {
+  padding: 2px; 
+}
+
+
+.sidebar .ui-datepicker td a {
+  padding: 1px; 
+}
+
+.sidebar .ui-datepicker td.ui-datepicker-today a {
+  font-weight: bold; 
+}
+
+.sidebar .ui-datepicker td.ui-datepicker-current-day a,
+.sidebar .ui-datepicker td a:hover {
+  background-color: #505050; 
+  color: #ffffff;
+}

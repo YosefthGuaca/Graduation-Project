@@ -18,3 +18,27 @@
 .gjs-four-color-h:hover {
   color: #f97316 !important;
 }
+
+@keyframes move {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(50px, 25px) scale(1.2);
+  }
+  50% {
+    transform: translate(100px, 50px) scale(0.8);
+  }
+  75% {
+    transform: translate(50px, 75px) scale(1.1);
+  }
+}
+
+.circle {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: rgb(255, 98, 0);
+  border-radius: 50%;
+  animation: move 5s infinite ease-in-out;
+}
