@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '@/axios';
 import CreateWebsiteModal from './CreateWebsiteModal';
@@ -17,7 +16,27 @@ const Websites = () => {
         console.error('Error fetching websites:', error);
       }
     }
+
     fetchWebsites();
+
+    // Cargando el script de Voiceflow
+    const script = document.createElement('script');
+    script.src = "https://cdn.voiceflow.com/widget/bundle.mjs";
+    script.type = "text/javascript";
+    script.onload = function() {
+      window.voiceflow.chat.load({
+        verify: { projectID: '6627456d92e9f95beaa21cef' },
+        url: 'https://general-runtime.voiceflow.com',
+        versionID: 'production'
+      });
+    };
+
+    document.body.appendChild(script);
+
+    // Limpieza para evitar la carga múltiple del script al salir del componente
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   return (
@@ -55,4 +74,5 @@ const Websites = () => {
     </div>
   );
 };
+
 export default Websites;
