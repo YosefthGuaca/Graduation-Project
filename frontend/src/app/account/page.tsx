@@ -1,12 +1,14 @@
-import React from 'react'
+import React from 'react';
+import NavbarAccount from '@/app/components/NavbarAccount';
+import Account from '@/app/components/Account';
 
 function account() {
   return (
     <div>
-      <h1>Account</h1>
-      <p>Manage your account information here.</p>
+      <NavbarAccount />
+      <Account />
     </div>
-  )
+  );
 }
 
-export default account
+export default account;
