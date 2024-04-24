@@ -2,12 +2,14 @@ import bcrypt from "bcrypt";
 import express, { NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import passport from "passport";
+import { UserInput } from "@/config/passport";
 
 type User = {
   id: number;
   email: string;
   username: string;
   firstLoginAt: Date;
+  hashedPassword: string;
 };
 
 const prisma = new PrismaClient();
@@ -96,4 +98,31 @@ const getMyUser = (req: express.Request, res: express.Response) => {
   }
 };
 
-export { login, logout, signup, getMyUser };
+const updatePassword = async (req: express.Request, res: express.Response) => {
+  if (req.isAuthenticated()) {
+    const { oldPassword, newPassword } = req.body;
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+    const user = req.user as UserInput;
+    const isMatch = await bcrypt.compare(oldPassword, user.hashedPassword);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Incorrect password" });
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        hashedPassword,
+      },
+    });
+
+    return res.status(200).json(req.user);
+  } else {
+    return res.status(404).json({ message: "You are logged out" });
+  }
+};
+
+export { login, logout, signup, getMyUser, updatePassword };
