@@ -40,7 +40,7 @@ const Websites = () => {
     <div>
       <NavbarAccount />
       <div className="container px-6 my-12 mx-auto">
-        <h1 className="text-5xl font-bold">Manage portfolios </h1>
+        <h1 className="text-4xl font-bold">Manage portfolios </h1>
         <br></br>
         <h4 className="text-2xl font-bold">This are your last portfolio pages.</h4>
         <ul className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
