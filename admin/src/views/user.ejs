@@ -14,58 +14,63 @@
 
         <div class="table-responsive">
           <table>
-            <thead>
-              <tr>
-                <th scope="col">
-                  <input type="checkbox" id="selectAllCheckbox" />
-                </th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Class</th>
-                <th scope="col">Premium Start</th>
-                <th scope="col">Premium End</th>
-                <th scope="col">First Login</th>
-                <th scope="col">Email Sent</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="userList">
-                <% if (users && users.length > 0) { %>
-                    <% users.forEach(user => { %>
-                        <tr class="user-row">
-                            <td>
-                                <!-- Checkbox individual -->
-                                <input type="checkbox" class="user-checkbox">
-                            </td>
-                            <td><%= user.username %></td>
-                            <td><%= user.email %></td>
-                            <td><%= user.class %></td>
-                            <td><%= user.premiumStart ? user.premiumStart.toDateString() : 'N/A' %></td>
-                            <td><%= user.premiumEnd ? user.premiumEnd.toDateString() : 'N/A' %></td>
-                            <td><%= user.firstLoginAt ? user.firstLoginAt.toDateString() : 'N/A' %></td>
-                            <td><%= user.emailSentAt ? user.emailSentAt.toDateString() : 'N/A' %></td>
-                            <td>
-                                <button class="btn btn-primary btn-sm edit-btn" 
-                                        data-user-id="<%= user.id %>"
-                                        data-username="<%= user.username %>"
-                                        data-email="<%= user.email %>"
-                                        data-class="<%= user.class %>"
-                                        data-premium-start="<%= user.premiumStart ? user.premiumStart.toISOString().split('T')[0] : '' %>"
-                                        data-premium-end="<%= user.premiumEnd ? user.premiumEnd.toISOString().split('T')[0] : '' %>">
-                                    Edit <i class='bx bx-edit'></i>
-                                </button>
-                                <button class="btn btn-danger btn-sm delete-btn" onclick="confirmDelete('<%= user.username %>', '<%= user.id %>')" <%= user.firstLoginAt ? 'disabled' : '' %>>Delete <i class='bx bx-trash'></i></button>
-                                <form action="/users/<%= user.id %>/email" method="post"><button type="submit" class="btn btn-warning btn-sm alert-btn">email <i class='bx bx-envelope' ></i></button></form>
-                            </td>
-                        </tr>
-                    <% }) %>
-                <% } else { %>
-                    <tr>
-                        <td colspan="7">No users found.</td>
-                    </tr>
-                <% } %>
-            </tbody>
+              <thead>
+                  <tr>
+                      <th scope="col">
+                          <input type="checkbox" id="selectAllCheckbox" />
+                      </th>
+                      <th scope="col">Username</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Class</th>
+                      <th scope="col">Premium Start</th>
+                      <th scope="col">Premium End</th>
+                      <th scope="col">First Login</th>
+                      <th scope="col">Email Sent</th>
+                      <th scope="col">Actions</th>
+                  </tr>
+              </thead>
+              <tbody id="userList">
+                  <% if (users && users.length > 0) { %>
+                  <% users.forEach(user => { %>
+                  <tr class="user-row">
+                      <td>
+                          <!-- Checkbox individual -->
+                          <input type="checkbox" class="user-checkbox">
+                      </td>
+                      <td><%= user.username %></td>
+                      <td><%= user.email %></td>
+                      <td><%= user.class %></td>
+                      <td><%= user.premiumStart ? user.premiumStart.toDateString() : 'N/A' %></td>
+                      <td><%= user.premiumEnd ? user.premiumEnd.toDateString() : 'N/A' %></td>
+                      <td><%= user.firstLoginAt ? user.firstLoginAt.toDateString() : 'N/A' %></td>
+                      <td><%= user.emailSentAt ? user.emailSentAt.toDateString() : 'N/A' %></td>
+                      <td>
+                          <div class="btn-group" role="group" aria-label="User Actions">
+                              <button class="btn btn-primary btn-sm edit-btn" data-user-id="<%= user.id %>" data-username="<%= user.username %>" data-email="<%= user.email %>" data-class="<%= user.class %>" data-premium-start="<%= user.premiumStart ? user.premiumStart.toISOString().split('T')[0] : '' %>" data-premium-end="<%= user.premiumEnd ? user.premiumEnd.toISOString().split('T')[0] : '' %>">
+                                  <i class='bx bx-edit'></i> 
+                              </button>
+                              <button class="btn btn-danger btn-sm delete-btn" onclick="confirmDelete('<%= user.username %>', '<%= user.id %>')" <%= user.firstLoginAt ? 'disabled' : '' %>>
+                                  <i class='bx bx-trash'></i> 
+                              </button>
+                              <form action="/users/<%= user.id %>/email" method="post">
+                                  <button type="submit" class="btn btn-warning btn-sm alert-btn">
+                                      <i class='bx bx-envelope'></i> 
+                                  </button>
+                              </form>
+                          </div>
+                      </td>
+                  </tr>
+                  <% }) %>
+                  <% } else { %>
+                  <tr>
+                      <td colspan="7">No users found.</td>
+                  </tr>
+                  <% } %>
+              </tbody>
           </table>
+      </div>
+      
+      
         </div>
 
         <!-- edit user -->
