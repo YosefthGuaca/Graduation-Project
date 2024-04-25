@@ -30,10 +30,7 @@ const Websites = () => {
         versionID: 'production'
       });
     };
-
     document.body.appendChild(script);
-
-    // Limpieza para evitar la carga múltiple del script al salir del componente
     return () => {
       document.body.removeChild(script);
     };
@@ -43,7 +40,7 @@ const Websites = () => {
     <div>
       <NavbarAccount />
       <div className="container px-6 my-12 mx-auto">
-        <h1 className="text-7xl font-bold">Manage portfolios <img src="UX SHOW GO 4.png" alt="Portfolio Image" className="inline-block align-middle h-12 w-auto ml-3"/></h1>
+        <h1 className="text-5xl font-bold">Manage portfolios </h1>
         <br></br>
         <h4 className="text-2xl font-bold">This are your last portfolio pages.</h4>
         <ul className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

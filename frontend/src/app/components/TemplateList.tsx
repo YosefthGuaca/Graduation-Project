@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import axiosInstance from '@/axios';
 import grapesjs from 'grapesjs';
 import Image from 'next/image';
+import NavbarAccount from './NavbarAccount';
 
 type Props = { websiteSlug: string };
 
@@ -79,8 +80,11 @@ const TemplateList = (props: Props) => {
 
   return (
     <div>
-      <div className="container mx-auto flex justify-between py-4">
-        <h1 className="text-2xl font-bold">Templates</h1>
+    <NavbarAccount/>
+    <div className="container px-6 my-12 mx-auto">
+      <div className="container mx-auto flex justify-between py-4 ">
+        <h1 className="text-3xl font-bold">Templates</h1>
+  
         {selectedTemplate !== '' && (
           <div>
             <button
@@ -91,7 +95,7 @@ const TemplateList = (props: Props) => {
             </button>
             <button
               onClick={() => updateTemplate()}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded"
             >
               Choose this template
             </button>
@@ -101,7 +105,7 @@ const TemplateList = (props: Props) => {
       {selectedTemplate === '' ? (
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3">
           {templates.map((template) => (
-            <div className="border-2" key={template.id} onClick={() => clickTemplate(template.id || 0)}>
+            <div className="bg-white border border-gray-200 hover:shadow-lg rounded-lg p-6 text-center transition duration-300 ease-in-out  font-bold " key={template.id} onClick={() => clickTemplate(template.id || 0)}>
               <h2>{template.name}</h2>
               {template.id === 1 ? (
                 <Image src="/defaultTemplate.png" alt="default template" width={480} height={480} />
@@ -114,6 +118,7 @@ const TemplateList = (props: Props) => {
       ) : (
         <div dangerouslySetInnerHTML={{ __html: selectedTemplate }} />
       )}
+    </div>
     </div>
   );
 };
