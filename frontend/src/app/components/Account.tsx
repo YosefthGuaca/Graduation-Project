@@ -2,7 +2,6 @@
 
 import React from 'react';
 import axiosInstance from '@/axios';
-import { useRouter } from 'next/navigation';
 import { User } from '@prisma/client';
 
 type Props = {};
@@ -48,56 +47,93 @@ const Account = (props: Props) => {
       setSuccess(true);
       setOldPassword('');
       setNewPassword('');
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <form onSubmit={submitFunc}>
-      <div className="grid place-items-center gap-12 mt-12 p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-        <p className="text-2xl font-bold">Account</p>
-        <p className="font-semibold text-sm text-gray-600 pb-1 block">Email: {user?.email}</p>
-        <p className="font-semibold text-sm text-gray-600 pb-1 block">Username: {user?.username}</p>
-        {user?.hashedPassword && (
-          <>
-            <div className="w-full text-center">
-              <label className="font-semibold text-sm text-gray-600 pb-1 block">Old Password</label>
-              <input
-                name="old password"
-                type="password"
-                className="border rounded-lg px-3 py-2 mt-1 text-sm w-full"
-                value={oldPassword}
-                onChange={(e) => {
-                  setOldPassword(e.target.value);
-                }}
-              />
+    <div className="flex flex-col items-center justify-center mt-12">
+      <form onSubmit={submitFunc} className="w-full max-w-lg">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+          <p className="text-2xl font-bold">Account</p>
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Email
+            </label>
+            <p className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3">
+              {user?.email}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Username
+            </label>
+            <p className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3">
+              {user?.username}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3 mb-6 md:mb-0">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-old-password">
+              Old Password
+            </label>
+            <input
+              className="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              id="grid-old-password"
+              type="password"
+              placeholder="******************"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3 mb-6 md:mb-0">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-new-password">
+              New Password
+            </label>
+            <input
+              className={`appearance-none block w-full bg-white text-gray-700 border ${passwordValid ? 'border-gray-200' : 'border-red-500'} rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
+              id="grid-new-password"
+              type="password"
+              value={newPassword}
+              onChange={(e) => {
+                setNewPassword(e.target.value);
+                setPasswordValid(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(e.target.value));
+              }}
+            />
+            {!passwordValid && (
+              <p className="text-red-500 text-xs italic">
+                Password must be at least 8 characters and contain both letters and numbers.
+              </p>
+            )}
+          </div>
+        </div>
+
+        {success && (
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full px-3">
+              <p className="text-green-500 text-xs italic">Successfully changed password</p>
             </div>
-            <div className="w-full text-center">
-              <label className="font-semibold text-sm text-gray-600 pb-1 block">New Password</label>
-              <input
-                name="new password"
-                type="password"
-                className="border rounded-lg px-3 py-2 mt-1 text-sm w-full"
-                value={newPassword}
-                onChange={(e) => {
-                  setNewPassword(e.target.value);
-                  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-                  setPasswordValid(passwordRegex.test(e.target.value));
-                }}
-              />
-            </div>
-          </>
+          </div>
         )}
-        {!passwordValid && (
-          <p className="text-red-500 text-sm">
-            Password must be at least 8 characters and contain both letters and numbers.
-          </p>
-        )}
-        {success && <p className="text-green-500 text-sm">Successfully changed password</p>}
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          change password
-        </button>
-      </div>
-    </form>
+
+        <div className="flex flex-wrap -mx-3 mt-6">
+          <div className="w-full px-3">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+              Change Password
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 
