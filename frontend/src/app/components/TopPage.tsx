@@ -15,9 +15,9 @@ const TopPage = (props: Props) => {
         <Image src="/UxShowGo.gif" alt="UxShowGo" width={576} height={324} />
         <h2 className="text-3xl font-semibold px-20 mb-6">Fast & easy UX <br />portfolio building</h2>
       </div>
-        <div className="container mx-auto px-6 ">
+        {/* <div className="container mx-auto px-6 ">
           <h2 className="text-3xl font-semibold mb-8 text-black">Features made for UX professionals</h2>
-        </div>
+        </div> */}
 
     </div>
   );
