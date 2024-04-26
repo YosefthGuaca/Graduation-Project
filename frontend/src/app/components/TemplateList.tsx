@@ -112,12 +112,7 @@ const TemplateList = (props: Props) => {
           {templates.map((template) => (
             <div className="bg-white border border-gray-200 hover:shadow-lg rounded-lg p-6 text-center transition duration-300 ease-in-out  font-bold " key={template.id} onClick={() => clickTemplate(template.id || 0)}>
               <h2>{template.name}</h2>
-              {template.id === 1 ?  (
-                <Image src="/defaultTemplate.png" alt="default template" width={480} height={480} />
-              ) : (template.id === 2 ?(
-                <Image src="/newTemplateThumnail.png" alt="new template" width={480} height={480} />
-              ): (<Image src="/secondTemplate.png" alt="new template" width={480} height={480} />)
-              )}
+              <Image src={`/${template.id}_Template.png`} alt="default template" width={480} height={480} />
             </div>
           ))}
         </div>
