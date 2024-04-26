@@ -41,8 +41,8 @@ const TemplateList = (props: Props) => {
         // setTemplates(response.data);
         setTemplates([
           { id: 1, name: 'Default Template' },
-          { id: 2, name: 'New Template' },
-          { id: 3, name: 'New Template 2' },
+          { id: 2, name: 'Sena Template' },
+          { id: 3, name: 'Mvc Template' },
         ]);
       } catch (error) {}
     };
