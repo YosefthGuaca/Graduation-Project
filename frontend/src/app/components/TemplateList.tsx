@@ -42,6 +42,7 @@ const TemplateList = (props: Props) => {
         setTemplates([
           { id: 1, name: 'Default Template' },
           { id: 2, name: 'New Template' },
+          { id: 3, name: 'New Template 2' },
         ]);
       } catch (error) {}
     };
@@ -55,6 +56,10 @@ const TemplateList = (props: Props) => {
       setSelectedTemplate(template);
     } else if (id === 2) {
       const response = await fetch('/newTemplate.html');
+      const template = await response.text();
+      setSelectedTemplate(template);
+    } else if (id === 3) {
+      const response = await fetch('/oxer-html/index.html');
       const template = await response.text();
       setSelectedTemplate(template);
     }
