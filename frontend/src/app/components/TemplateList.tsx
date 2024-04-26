@@ -43,6 +43,9 @@ const TemplateList = (props: Props) => {
           { id: 1, name: 'Default Template' },
           { id: 2, name: 'Sena Template' },
           { id: 3, name: 'Mvc Template' },
+          { id: 4, name: 'Basic Template' },
+          { id: 5, name: 'Doe Template' },
+          { id: 6, name: 'Green Template' },
         ]);
       } catch (error) {}
     };
@@ -60,6 +63,18 @@ const TemplateList = (props: Props) => {
       setSelectedTemplate(template);
     } else if (id === 3) {
       const response = await fetch('/oxer-html/index.html');
+      const template = await response.text();
+      setSelectedTemplate(template);
+    }else if (id === 4) {
+      const response = await fetch('/Resume-Ben/index.html') ;
+      const template = await response.text();
+      setSelectedTemplate(template);
+    }else if (id === 5) {
+      const response = await fetch('/johndoe/public_html/index.html') ;
+      const template = await response.text();
+      setSelectedTemplate(template);
+    }else if (id === 6) {
+      const response = await fetch('/templatemo_531_reflux/index.html') ;
       const template = await response.text();
       setSelectedTemplate(template);
     }
