@@ -1,6 +1,4 @@
-_Program Project Kickoff_ document has been moved. [docs/kick_off](/docs/kick_off/README.md)
-
-![Ux Show Go](/docs/logos/UxShowGo.gif)
+[Ux Show Go]
 
 # Ux Show Go
 
@@ -34,3 +32,9 @@ npx prisma migrate reset
 ```sh
 npm run dev
 ```
+
+## Credits
+- obrkn
+-geoayalamung
+-orange-na
+-YosefthGuaca
